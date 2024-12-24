@@ -1,22 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { useEffect } from 'react'
+import { useState } from "react";
 
-import { useRef } from 'react'
+import "./App.css";
+import { useEffect } from "react";
+
+import { useRef } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Auth from "./components/Auth";
+import Home from "./components/Home";
+import Nav from "./components/Nav";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Nav />,
+      children: [
+        {
+          path: "",
+          element: <Home />,
+        },
+        {
+          path: "auth/",
+          element: <Auth />,
+        },
+      ],
+    },
+  ]);
 
   return (
     <>
-      <h1>hi mango</h1>
-
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
