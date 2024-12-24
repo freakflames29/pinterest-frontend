@@ -1,13 +1,15 @@
+import { Link } from "react-router-dom";
 import LOGO from "../assets/images/icon.png";
 function HomeNav() {
   return (
     <div className="container">
       <div className="left">
-        <div className="logo">
+        <Link to="/" className="logo">
           {/* Image */}
+
           <img src={LOGO} alt="" className="logo__img" />
           <span className="logo__text">Pinterest</span>
-        </div>
+        </Link>
         <span className="nav__item">Today</span>
         <span className="nav__item">Watch</span>
         <span className="nav__item">Explore</span>
