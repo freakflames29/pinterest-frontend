@@ -19,11 +19,11 @@ function App() {
           path: "",
           element: <Home />,
         },
-        {
-          path: "auth/",
-          element: <Auth />,
-        },
       ],
+    },
+    {
+      path: "auth/",
+      element: <Auth />,
     },
   ]);
 

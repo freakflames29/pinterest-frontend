@@ -1,42 +1,90 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+}
+:root{
+  --border-radius: 24px;
+  --red:#e60023;
+  --text-box-radius: 16px;
+  --grey:#E2E2E2;
+}
+.container{
+  width: 100%;
+  height: 8vh;
+  /* background-color: red; */
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-around;
+  padding: auto;
+}
+.left{
+  width: 60%;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  
+
+}
+.right{
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+}
+.logo{
+  max-width:30px;
+  /* background-color: red; */
+  height: 100%;
+  display: flex;
+  margin-right: 10%;
+  align-items: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.logo__img{
+  width: 100%;
+  margin-right: 5px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.logo__text{
+  color: var(--red);
+  font-size: 1.2em;
+  font-weight: 700;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.nav__item{
+  margin: 0px 10px;
+  font-weight: 500;
 }
+.btn{
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  transition: .25s ease;
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.btn:active{
+  transform: scale(0.9);
 }
-
-.card {
-  padding: 2em;
+.btn__red{
+  background-color: var(--red);
+  color: #fff;
+  font-weight: 500;
 }
-
-.read-the-docs {
-  color: #888;
+.btn__red:hover{
+  background-color: #d0001fe2;
+}
+.btn__grey{
+  background-color: var(--grey);
+}
+.btn__grey:hover{
+  background-color: rgb(196, 196, 196);
+}
+.nav__btn{
+  margin-right: 10px;
 }
