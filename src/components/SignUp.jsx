@@ -24,6 +24,7 @@ function SignUp(props) {
     function toggleIt() {
         // eslint-disable-next-line react/prop-types
         props.toggle();
+        setError(null)
         // console.log("meow")
     }
 
@@ -31,6 +32,7 @@ function SignUp(props) {
 
         if (props.login) {
             setLoading(true)
+
             console.log(("Signup page"))
 
             const payload = {
@@ -61,6 +63,7 @@ function SignUp(props) {
 
         } else {
             setLoading(true)
+            setError(null)
             console.log("Login page")
 
             const payload = {
@@ -131,6 +134,7 @@ function SignUp(props) {
                             ref={email}
                         />
                     </>)}
+
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
@@ -144,9 +148,9 @@ function SignUp(props) {
                             onClick={sendData}>{props.login ? "Contiune" : "Login"}</button>
 
                     {props.login ? (<span className="info">
-                              Already have and account? <b onClick={toggleIt}>Login</b>
+                              Already have and account? <span className={"bold red underline"} onClick={toggleIt}>Login</span>
                             </span>) : (<span className="info">
-                              Dont have account ? <b onClick={toggleIt}>Signup</b>
+                              Dont have account ? <span className={"bold red underline"} onClick={toggleIt}>Signup</span>
                             </span>)}
                 </div>
             </div>

@@ -284,3 +284,14 @@ button[disabled]{
         transform: rotate(360deg);
     }
 }
+.bold{
+    font-weight: 700;
+    cursor: pointer;
+
+}
+.red{
+    color: #e60023;
+}
+.underline{
+    text-decoration: underline;
+}
