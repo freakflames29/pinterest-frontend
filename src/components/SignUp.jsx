@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import LOGO from "../assets/images/icon.png";
 import axios from "axios";
 import {ROOT_URL} from "../Constants.js";
@@ -28,6 +28,23 @@ function SignUp(props) {
         // console.log("meow")
     }
 
+    useEffect(() => {
+        function fetchFromLocalStorage(){
+            let item = localStorage.getItem("userInfo")
+            if(item){
+               const parsedItem = JSON.parse(item)
+                dispatch(userActions.setUser(parsedItem))
+            }
+        }
+        fetchFromLocalStorage()
+    }, []);
+
+
+    function setDataToLocalStorage(key,data){
+        let stringData = JSON.stringify(data)
+        localStorage.setItem(key,stringData)
+    }
+
     function sendData() {
 
         if (props.login) {
@@ -44,6 +61,8 @@ function SignUp(props) {
             axios.post(`${ROOT_URL}auth/signup/`, payload)
                 .then(res => {
                     dispatch(userActions.setUser(res.data))
+                    setDataToLocalStorage("userInfo",res.data)
+
                     setError(null)
                 })
                 .catch(e => {
@@ -74,6 +93,7 @@ function SignUp(props) {
             axios.post(`${ROOT_URL}auth/login/`, payload)
                 .then(res => {
                     dispatch(userActions.setUser(res.data))
+                    setDataToLocalStorage("userInfo",res.data)
                     setError(null)
                 })
                 .catch(e => {
