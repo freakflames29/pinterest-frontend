@@ -269,10 +269,15 @@ button[disabled] {
     text-align: center;
     font-weight: 500;
 }
+.main__loader{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
-.loading__card img {
-    width: 90px;
-    height: 90px;
+.loader__img{
+    width: 70px;
+    height: 70px;
     background-size: contain;
     animation: rotate infinite 0.8s linear;
 
@@ -371,4 +376,22 @@ button[disabled] {
     width: 20%;
     border-radius: 100%;
 }
+.hero__container{
+    width: 100%;
+    height: auto;
+}
+.hero__image__section{
+    width: 90%;
+    columns: 200px;
+    margin: auto    ;
+    margin-top: 1%;
 
+}
+.image__list{
+  width: 100%;
+
+}
+.image__list img {
+    width: 100%;
+    border-radius: 10px;
+}

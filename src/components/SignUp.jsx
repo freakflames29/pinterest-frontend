@@ -1,11 +1,11 @@
 import React, {useRef, useState} from "react";
 import LOGO from "../assets/images/icon.png";
-import LOADER from "../assets/images/loader.png"
 import axios from "axios";
 import {ROOT_URL} from "../Constants.js";
 import {userActions} from "../store/userSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
+import Loader from "./Loader.jsx";
 
 
 function SignUp(props) {
@@ -97,11 +97,8 @@ function SignUp(props) {
         {userInfo && <Navigate to={"/"}/>}
         <div className="signup__container">
 
-            {loading &&
-                <div className="loading__card">
-                    <img src={LOADER} alt=""/>
-                </div>
-            }
+            {loading && <Loader/>}
+
             <div className="signup__card">
 
 
