@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import LOGO from "../assets/images/icon.png";
+import HERO from "../assets/images/hero.png";
+import SignUp from "./SignUp";
+import { useState } from "react";
 function HomeNav() {
   return (
     <div className="container">
@@ -22,15 +25,49 @@ function HomeNav() {
   );
 }
 function HomeFooter() {
-  return <h1>Home footer</h1>;
+  return (
+    <div className="footer__container">
+      <span className="footer__el">Terms and condition</span>
+      <span className="footer__el">Privacy Policy</span>
+      <span className="footer__el">Help</span>
+      <span className="footer__el">Users</span>
+      <span className="footer__el">iPhone app</span>
+      <span className="footer__el">Android app</span>
+    </div>
+  );
 }
 
 function Auth() {
+  const [toggleLogin, setToggleLogin] = useState(true);
+
+  // if toggleLogin == true ==> signup component , else login component
+  if (toggleLogin) {
+    console.log("Loggin");
+  } else {
+    console.log("false");
+  }
+
+  function toggleHandler() {
+    setToggleLogin((prev) => !prev);
+  }
   return (
     <>
       <HomeNav />
-      {/* <h1>Home bar</h1>
-      <HomeFooter /> */}
+      <div className="hero__container">
+        <div className="hero__background">
+          <img src={HERO} alt="hereIng" className="hero__img" />
+        </div>
+        <div className="hero__section">
+          <div className="hero__left">
+            <h1 className="hero__text">Signup to get your ideas</h1>
+          </div>
+
+          <div className="hero__right">
+            <SignUp toggle={toggleHandler} login = {toggleLogin} />
+          </div>
+        </div>
+      </div>
+      <HomeFooter />
     </>
   );
 }
