@@ -106,7 +106,7 @@ function SignUp(props) {
 
 
                 <img src={LOGO} alt="" className="signup__pin__logo"/>
-                <h2>Welcome to Pinterest</h2>
+                <h2>Welcome to Goluterest</h2>
                 {props.login && <span>Find new ideas to try</span>}
 
                 {error &&

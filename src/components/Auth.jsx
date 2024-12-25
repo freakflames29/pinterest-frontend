@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import LOGO from "../assets/images/icon.png";
 import HERO from "../assets/images/hero.png";
+
 import SignUp from "./SignUp";
 import { useState } from "react";
+
+
+
 function HomeNav() {
   return (
     <div className="container">
@@ -11,7 +15,7 @@ function HomeNav() {
           {/* Image */}
 
           <img src={LOGO} alt="" className="logo__img" />
-          <span className="logo__text">Pinterest</span>
+          <span className="logo__text">Goluterest</span>
         </Link>
         <span className="nav__item">Today</span>
         <span className="nav__item">Watch</span>
