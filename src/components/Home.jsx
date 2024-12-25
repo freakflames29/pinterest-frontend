@@ -46,6 +46,9 @@ function Home() {
     if (loading) {
         return <MainLoader/>
     }
+    if(err){
+        return <center><h1>{err}</h1></center>
+    }
 
     return (
         <>
