@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
+import SinglePin from "./components/SinglePin";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,6 +19,10 @@ function App() {
         {
           path: "",
           element: <Home />,
+        },
+        {
+          path: "pin/:id",
+          element: <SinglePin />,
         },
       ],
     },

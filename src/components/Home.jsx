@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import Loader from "./Loader.jsx";
 import MainLoader from "./MainLoader.jsx";
+import { Link } from "react-router-dom";
 
 function Home() {
     const [loading, setLoading] = useState(true)
@@ -56,10 +57,12 @@ function Home() {
                 <div className="hero__image__section">
                     {
                         pinInfo.map(pin => (
-                            <div key={pin.id} className={"image__list"}>
+                            <Link to={`pin/${pin.id}`} key={pin.id}>
+                            <div  className={"image__list"}>
                                 <img src={pin.image} alt=""/>
                                 <span>{pin.username}</span>
                             </div>
+                            </Link>
                         ))
                     }
                 </div>
