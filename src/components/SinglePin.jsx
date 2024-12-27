@@ -11,15 +11,7 @@ function SinglePin() {
   const dispatch = useDispatch();
   //! todo add fething the pin details upon checking JWT token
   
-  function SetLocalStorageDataToStore() {
-    const local = localStorage.getItem("userInfo");
-    if (local) {
-      const parseData = JSON.parse(local);
-      dispatch(userActions.setUser(parseData));
-    }
-  }
-
-  useEffect(() => {}, []);
+  
 
   return (
     <div>

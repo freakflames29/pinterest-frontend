@@ -2,8 +2,28 @@ import { Link, Outlet } from "react-router-dom";
 import PINSVG from "../assets/images/pinsvg.svg"
 import DUCK from "../assets/images/duck.jpeg"
 import { FaSearch } from "react-icons/fa";
-
+import { userActions } from "../store/userSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 function Nav() {
+
+  const dispatch = useDispatch()
+
+  // it checks if user data present in localstorage and if present loads the data redux store
+  function localStorageDataToReduxStore(){
+    const data = localStorage.getItem("userInfo")
+    if(data){
+      let parsedData = JSON.parse(data)
+      dispatch(userActions.setUser(parsedData))
+
+    }
+  }
+
+  useEffect(()=>localStorageDataToReduxStore(),[])
+
+
+
+
   return (
     <>
         <div className="main__nav__container">

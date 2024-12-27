@@ -11,6 +11,10 @@ import Nav from "./components/Nav";
 import SinglePin from "./components/SinglePin";
 
 function App() {
+
+
+
+  
   const router = createBrowserRouter([
     {
       path: "/",
