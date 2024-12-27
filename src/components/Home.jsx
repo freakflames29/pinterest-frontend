@@ -13,7 +13,7 @@ function Home() {
     const [loading, setLoading] = useState(true)
     const [err, setErr] = useState(null)
 
-    const pinInfo = useSelector(state => state.pinReducer.pin)
+    const pinInfo = useSelector(state => state.pinReducer.allPin)
     const dispatch = useDispatch()
 
 
@@ -22,7 +22,7 @@ function Home() {
             setLoading(true)
             const res = await axios(`${ROOT_URL}pin/`)
 
-            dispatch(pinActions.setPin(res.data))
+            dispatch(pinActions.setAllPin(res.data))
             setErr(null)
             console.log(res.data)
 
@@ -42,6 +42,7 @@ function Home() {
 
     useEffect(() => {
         fetchData()
+
     }, []);
 
     if (loading) {

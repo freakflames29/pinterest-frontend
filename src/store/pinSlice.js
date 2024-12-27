@@ -1,19 +1,29 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    pin:null
+    allPin:null,
+    singlePin:null,
 }
 
 const pinSlice = createSlice({
     name:"pinSlice",
     initialState,
     reducers:{
-        setPin(state,action){
-            state.pin = action.payload
+        setAllPin(state,action){
+            state.allPin = action.payload
 
         },
-        removePin(state){
-            state.pin = null
+        removeAllPin(state){
+            state.allPin = null;
+        },
+
+        setSinglePin(state,action){
+            state.singlePin = action.payload
+
+        },
+        removeSinglePin(state){
+
+            state.singlePin = null
         }
 
     }
