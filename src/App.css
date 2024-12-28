@@ -84,6 +84,10 @@
     color: #fff;
     font-weight: 500;
 }
+.btn__black{
+    background-color: #000;
+    color: #fff;
+}
 
 .btn__red:hover {
     background-color: #d0001fe2;
@@ -408,7 +412,7 @@ button[disabled] {
     margin-top: 2%;
 }
 .show__card{
-    width: 60%;
+    width: 50%;
     max-height: 80%;
 
     /* background: red; */
@@ -420,13 +424,16 @@ button[disabled] {
     overflow: hidden;
     /* background-color: antiquewhite; */
     /* max-height: fit-content; */
+    box-shadow: 1px 1px 10px rgb(219, 219, 219);
+    border-radius: 15px;
 
 }
 .show__image{
-    width: auto;
+    width: 50%;
     height: auto; 
     /* display: flex; */
     /* contain: layout; */
+    /* padding: 20px; */
 
 }
 .show__image img{
@@ -434,7 +441,7 @@ button[disabled] {
     
     height: 100%;   
     border-radius: 15px 0 0 15px;
-    /* object-fit:contain; */
+    object-fit:contain;
     
 }
 .show__info{
@@ -482,4 +489,16 @@ button[disabled] {
     width: 40px;
     border-radius: 100%;
     margin-right: 10px;
+}
+.options
+{
+    border-radius: 25px;
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+    margin-right: 5px;
+}
+.options:hover{
+    background: var(--grey);
+    cursor: pointer;
 }

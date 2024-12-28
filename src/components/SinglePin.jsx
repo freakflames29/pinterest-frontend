@@ -22,7 +22,15 @@ function SinglePin() {
 
   const boardInfo = useSelector((state) => state.boardReducer.boards);
 
-  const [boardSelect,setBoardSelect] = useState("")
+  const [boardSelect,setBoardSelect] = useState("-1")
+
+  // loading,eror and data states for save btn
+  const [saveLoading,setSaveLoading] = useState(false)
+  const [saveError,setSaveError] = useState(null)
+  const [saveSucess,setSaveSucess] = useState(false)
+
+
+
   // const userInfo = useSelector(state=>state.userReducer.user)
 
   // console.log("Pin info");
@@ -137,7 +145,34 @@ function SinglePin() {
   function boardSelectHandler(e){
     // e.preventDefault()
     // console.log("EEEEEEEE")
-    console.log(e.target.value)
+    console.log(typeof(e.target.value))
+    setBoardSelect(e.target.value)
+  }
+
+  // add to board btn
+
+  async function addToBoard() {
+    try{
+      setSaveLoading(true)
+      if(boardSelect !=="-1")
+      {
+        let url = `${ROOT_URL}board/${boardSelect}/pin/${singlePinInfo.id}/save/`
+        console.log(url)
+        const res = await axios.post(url)
+
+        if(res.status ===200){
+          // alert("Success")
+          setSaveSucess(true)
+        }
+      }
+      else{
+        alert("Pls select a board")
+      }
+    }catch(e){
+        console.log(e)
+    }finally{
+        setSaveLoading(false)
+    }
   }
 
   return (
@@ -148,22 +183,24 @@ function SinglePin() {
         </div>
         <div className="show__info">
           <div className="show__save__section">
-            <span>Likes and all</span>
+            <span>{ singlePinInfo.title }</span>
 
             <div className="board__list">
-              <select name="cars" id="cars"  onChange={boardSelectHandler} >
+              <select name="cars" id="cars"  onChange={boardSelectHandler} className="options">
+              <option value="-1">Select</option>
+
                 {boardInfo.map((board) => (
-                  <option value={`${board.name}`}key={board.id}>{board.name}</option>
+                  <option value={`${board.id}`}key={board.id}>{board.name}</option>
                   
                 ))}
                
                 
               </select>
-              <button className="btn btn__red">Save</button>
+              <button className={!saveSucess ? "btn btn__red": "btn btn__black"} onClick={()=> addToBoard()}>{saveLoading ? "Saving..":<> {saveSucess ? "Saved" : "Save" }</>}</button>
             </div>
           </div>
 
-          <SmallProfile name={singlePinInfo.username} />
+          <SmallProfile name={singlePinInfo?.username} />
 
           <div className="show__comments">
             <h3>Comments:</h3>
