@@ -12,6 +12,10 @@ const userSlice = createSlice({
         },
         removeUser(state){
             state.user = null
+        },
+        setToken(state,action){
+            state.user.token = action.payload.access
+            // state.refresh = action.payload.refresh
         }
     }
 })

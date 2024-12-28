@@ -17,6 +17,8 @@ function Home() {
     const dispatch = useDispatch()
 
 
+
+
     async function fetchData() {
         try {
             setLoading(true)
@@ -42,6 +44,7 @@ function Home() {
 
     useEffect(() => {
         fetchData()
+  
 
     }, []);
 
