@@ -206,9 +206,9 @@ function SinglePin() {
             <h3>Comments:</h3>
             <div className="restrict">
               <SmallProfile name="Sourav" />
-              <SmallProfile name="Sourav" />
-              <SmallProfile name="Sourav" />
-              <SmallProfile name="Sourav" />
+              <SmallProfile name="Jhon" />
+              <SmallProfile name="BroStat" />
+              <SmallProfile name="LostMan" />
             </div>
           </div>
           <div className="show__add_comment">

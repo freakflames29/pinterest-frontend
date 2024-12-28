@@ -426,6 +426,7 @@ button[disabled] {
     /* max-height: fit-content; */
     box-shadow: 1px 1px 10px rgb(219, 219, 219);
     border-radius: 15px;
+    
 
 }
 .show__image{
