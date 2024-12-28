@@ -13,15 +13,20 @@ import MainLoader from "./MainLoader";
 
 import PROFILE_IMG from "../assets/images/duck.jpeg";
 import SmallProfile from "./SmallProfile";
+import { boardActions } from "../store/boardSlice";
 
 function SinglePin() {
   const params = useParams();
   const userInfo = useSelector((state) => state.userReducer.user);
   const singlePinInfo = useSelector((state) => state.pinReducer.singlePin);
+
+  const boardInfo = useSelector((state) => state.boardReducer.boards);
+
+  const [boardSelect,setBoardSelect] = useState("")
   // const userInfo = useSelector(state=>state.userReducer.user)
 
-  console.log("Pin info");
-  console.log(singlePinInfo);
+  // console.log("Pin info");
+  // console.log(singlePinInfo);
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
@@ -83,8 +88,36 @@ function SinglePin() {
     }
   }
 
+  // ! fetching the list of boards user has
+
+  async function fethUserBoards() {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${ROOT_URL}board/`, {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+
+      console.log("User Board details:---");
+      console.table(res.data);
+
+      dispatch(boardActions.setBoards(res.data));
+      setErr(null);
+    } catch (e) {
+      setErr(e.message);
+      console.log("Error from fetching board details", e);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     fetchPinData();
+  }, [userInfo]);
+
+  useEffect(() => {
+    fethUserBoards();
   }, [userInfo]);
 
   if (loading) {
@@ -98,27 +131,47 @@ function SinglePin() {
     );
   }
 
+
+
+  //  
+  function boardSelectHandler(e){
+    // e.preventDefault()
+    // console.log("EEEEEEEE")
+    console.log(e.target.value)
+  }
+
   return (
     <div className="show__container">
       <div className="show__card">
         <div className="show__image">
-          <img src={singlePinInfo.image} alt="pin image" />
+          <img src={singlePinInfo?.image} alt="pin image" />
         </div>
         <div className="show__info">
           <div className="show__save__section">
             <span>Likes and all</span>
-            <button className="btn btn__red">Save</button>
+
+            <div className="board__list">
+              <select name="cars" id="cars"  onChange={boardSelectHandler} >
+                {boardInfo.map((board) => (
+                  <option value={`${board.name}`}key={board.id}>{board.name}</option>
+                  
+                ))}
+               
+                
+              </select>
+              <button className="btn btn__red">Save</button>
+            </div>
           </div>
-         
-         <SmallProfile name={singlePinInfo.username}/>
+
+          <SmallProfile name={singlePinInfo.username} />
 
           <div className="show__comments">
             <h3>Comments:</h3>
             <div className="restrict">
-              <SmallProfile name="Sourav"/>
-              <SmallProfile name="Sourav"/>
-              <SmallProfile name="Sourav"/>
-              <SmallProfile name="Sourav"/>
+              <SmallProfile name="Sourav" />
+              <SmallProfile name="Sourav" />
+              <SmallProfile name="Sourav" />
+              <SmallProfile name="Sourav" />
             </div>
           </div>
           <div className="show__add_comment">
@@ -130,6 +183,8 @@ function SinglePin() {
           </div>
         </div>
       </div>
+
+      <div className="board__list"></div>
     </div>
   );
 }

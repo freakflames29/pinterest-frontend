@@ -5,9 +5,12 @@ import { FaSearch } from "react-icons/fa";
 import { userActions } from "../store/userSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userInfo = useSelector(state=>state.userReducer.user)
 
   // it checks if user data present in localstorage and if present loads the data redux store
   function localStorageDataToReduxStore() {
@@ -21,7 +24,14 @@ function Nav() {
     }
   }
 
+
   useEffect(() => localStorageDataToReduxStore(), []);
+
+  function logOutHandler(){
+    localStorage.clear()
+    dispatch(userActions.removeUser())
+    navigate("/auth")
+  }
 
   return (
     <>
@@ -40,7 +50,11 @@ function Nav() {
           <input type="text" placeholder={`Search your ideas here...`} className="input__field"/>
         </div>
         <div className="main__nav__right">
+
+        <button className="btn btn_red" onClick={logOutHandler}>Logout</button> 
+
           <img src={DUCK} alt="" />
+          <span>{userInfo?.username}</span>
         </div>
       </div>
 
