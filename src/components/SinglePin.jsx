@@ -11,6 +11,9 @@ import { pinActions } from "../store/pinSlice";
 import { useState } from "react";
 import MainLoader from "./MainLoader";
 
+import PROFILE_IMG from "../assets/images/duck.jpeg";
+import SmallProfile from "./SmallProfile";
+
 function SinglePin() {
   const params = useParams();
   const userInfo = useSelector((state) => state.userReducer.user);
@@ -24,32 +27,25 @@ function SinglePin() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
 
-
-
   //! function if access token expires it fetches new acess token based on refresh token and updates the localstorage
 
-  async function fetchNewtoken(){
-    try{
-      setLoading(true)
+  async function fetchNewtoken() {
+    try {
+      setLoading(true);
 
       let payload = {
-        "refresh":userInfo.refresh
-      }
+        refresh: userInfo.refresh,
+      };
 
-      const res = await axios.post(`${ROOT_URL}auth/refresh/`,payload)
-      console.log("New response token",res.data)
-      dispatch(userActions.setToken(res.data))
-      setErr(null)
-
-
-
-    }
-    catch(e){
-      setErr(e.message)
-      console.log(e)
-    }
-    finally{
-      setLoading(false)
+      const res = await axios.post(`${ROOT_URL}auth/refresh/`, payload);
+      console.log("New response token", res.data);
+      dispatch(userActions.setToken(res.data));
+      setErr(null);
+    } catch (e) {
+      setErr(e.message);
+      console.log(e);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -77,7 +73,7 @@ function SinglePin() {
       if (e.response?.data.detail) {
         console.log(e.response);
         // setErr(e.response.data.detail);
-        fetchNewtoken()
+        fetchNewtoken();
       } else {
         setErr(e.message);
       }
@@ -89,7 +85,6 @@ function SinglePin() {
 
   useEffect(() => {
     fetchPinData();
-
   }, [userInfo]);
 
   if (loading) {
@@ -104,10 +99,37 @@ function SinglePin() {
   }
 
   return (
-    <div>
-      {/* {!userInfo && <Navigate to = "/auth"/>} */}
-      {singlePinInfo.username} <br />
-      <img src={singlePinInfo.image} alt="" />
+    <div className="show__container">
+      <div className="show__card">
+        <div className="show__image">
+          <img src={singlePinInfo.image} alt="pin image" />
+        </div>
+        <div className="show__info">
+          <div className="show__save__section">
+            <span>Likes and all</span>
+            <button className="btn btn__red">Save</button>
+          </div>
+         
+         <SmallProfile name={singlePinInfo.username}/>
+
+          <div className="show__comments">
+            <h3>Comments:</h3>
+            <div className="restrict">
+              <SmallProfile name="Sourav"/>
+              <SmallProfile name="Sourav"/>
+              <SmallProfile name="Sourav"/>
+              <SmallProfile name="Sourav"/>
+            </div>
+          </div>
+          <div className="show__add_comment">
+            <input
+              type="text"
+              placeholder="Add comment"
+              className="input__field comment__box"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

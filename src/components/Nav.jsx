@@ -37,7 +37,7 @@ function Nav() {
         <div className="main__nav__middle">
           <FaSearch />
 
-          <input type="text" placeholder={`Search your ideas here...`} />
+          <input type="text" placeholder={`Search your ideas here...`} className="input__field"/>
         </div>
         <div className="main__nav__right">
           <img src={DUCK} alt="" />
