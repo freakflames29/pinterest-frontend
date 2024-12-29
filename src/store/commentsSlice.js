@@ -14,6 +14,9 @@ const commentSlice = createSlice({
         },
         removeComments(state){
             state.comments = []
+        },
+        addComments(state,action){
+            state.comments = [...state.comments,action.payload]
         }
 
     }
