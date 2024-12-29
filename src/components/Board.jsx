@@ -21,7 +21,7 @@ const Board = (props) => {
 
     return (
         <div className="board__card">
-
+            <div className="board__overlay"></div>
 
             <div className="board__img">
                 <div className="board__cover">
@@ -38,10 +38,14 @@ const Board = (props) => {
                     </div>
                 </div>
             </div>
+
+
             <div className="borad__title">
                 <h1>{props?.name} </h1>
                 <p>{props.pins.length} pins</p>
             </div>
+
+
         </div>
     );
 };

@@ -394,7 +394,8 @@ button[disabled] {
     border-radius: 100%;
     /*transition: 0.2s ease;*/
 }
-.nav__profile__img:hover{
+
+.nav__profile__img:hover {
     filter: brightness(0.9);
     transform: scale(95%);
 }
@@ -607,9 +608,11 @@ button[disabled] {
     margin: 1%;
     border-radius: 15px;
     height: 200px;
+    position: relative;
     /*box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;*/
 }
-.board__img{
+
+.board__img {
     width: 100%;
 
     min-height: 150px;
@@ -617,50 +620,89 @@ button[disabled] {
     overflow: hidden;
     display: flex;
 }
-.board__img img{
+
+.board__img img {
     filter: brightness(0.9);
 }
-.board__cover{
+
+.board__cover {
     width: 60%;
     /*background: #732f2f;*/
 }
-.cover__img{
+
+.cover__img {
     width: 100%;
     height: 150px;
     object-fit: cover;
     border-radius: 15px 0 0 15px;
 }
-.board__right{
+
+.board__right {
     width: 40%;
     min-height: 200px;
     max-height: 200px;
     margin-left: 2px;
     /*background: skyblue;*/
 }
-.board__right__top{
+
+.board__right__top {
     width: 100%;
     height: 75px;
     margin-bottom: 2px;
     /*background: #666666;*/
 }
-.board__right__down{
+
+.board__right__down {
     width: 100%;
     height: 75px;
     /*background: #ff3030;*/
 }
-.small__down{
-        border-radius: 0px 0px 15px 0px;
+
+.small__down {
+    border-radius: 0px 0px 15px 0px;
 
 }
-.small__top{
+
+.small__top {
     border-radius: 0 15px 0 0;
 }
-.small__img{
+
+.small__img {
     width: 100%;
     object-fit: cover;
     height: 75px;
 }
-.borad__title{
+
+.borad__title {
     padding: 10px;
     font-size: 0.5rem;
+}
+
+.board__overlay {
+    width: 100%;
+    /*background: rgba(30, 30, 30, 0.39);*/
+    height: 150px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    /*background: red;*/
+    border-radius: 15px;
+    /*visibility: hidden;*/
+    display: none;
+    transition: background 0.3s ease, z-index 0.3s ease; /* Smooth transitions */
+    cursor: pointer;
+}
+
+.board__img {
+    position: relative;
+    z-index: 0;
+}
+
+.board__card:hover > .board__overlay {
+    background: rgba(44, 44, 44, 0.51);
+    /*z-index: 100;*/
+    /*visibility: visible;*/
+    display: block;
+    z-index: 2;
+
 }
