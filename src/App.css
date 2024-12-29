@@ -559,7 +559,7 @@ button[disabled] {
 }
 
 .profile__container {
-    width: 60%;
+    width: 80%;
     margin: auto;
     /*background: #999999;*/
     display: flex;
@@ -570,7 +570,7 @@ button[disabled] {
 }
 
 .profile__section {
-    width: 40%;
+    width: 80%;
     /*background: #e1e1e1;*/
     display: flex;
     justify-content: center;
@@ -587,7 +587,7 @@ button[disabled] {
 }
 
 .boards__container {
-    width: 60%;
+    width: 90%;
     /*background: aliceblue;*/
     display: flex;
     margin: auto;
@@ -596,7 +596,7 @@ button[disabled] {
 }
 
 .board__card {
-    width: 30%;
+    width: 15%;
     /*padding: 20px;*/
     /*background: rosybrown;*/
     margin: 1%;

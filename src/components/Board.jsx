@@ -39,7 +39,8 @@ const Board = (props) => {
                 </div>
             </div>
             <div className="borad__title">
-                <h1>{props?.name} {props.pins.length}</h1>
+                <h1>{props?.name} </h1>
+                <p>{props.pins.length} pins</p>
             </div>
         </div>
     );
