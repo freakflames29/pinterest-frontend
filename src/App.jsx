@@ -9,6 +9,7 @@ import Auth from "./components/Auth";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import SinglePin from "./components/SinglePin";
+import Profile from "./components/Profile.jsx";
 
 function App() {
 
@@ -27,6 +28,10 @@ function App() {
         {
           path: "pin/:id",
           element: <SinglePin />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
         },
       ],
     },

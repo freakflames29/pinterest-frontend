@@ -180,6 +180,8 @@ function SinglePin() {
             } finally {
                 setCommentCreateLoading(false)
             }
+        } else {
+            alert("Pls enter a text")
         }
 
     }
@@ -286,7 +288,8 @@ function SinglePin() {
                             className="input__field comment__box"
                             ref={comment}
                         />
-                        <button className="btn btn__red ml-2" onClick={commentCreate}>{commentCreateLoading ? "Posting..." :"Post"}</button>
+                        <button className="btn btn__red ml-2"
+                                onClick={commentCreate}>{commentCreateLoading ? "Posting..." : "Post"}</button>
                     </div>
                 </div>
             </div>
