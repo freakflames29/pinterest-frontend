@@ -474,12 +474,19 @@ button[disabled] {
     flex-grow: 1;
     /* background: #666666; */
 }
+.ml-2{
+    margin-left: 2%;
+}
 .restrict{
     max-height: 100%;
     overflow-y: scroll;
 }
 .show__add_comment{
     width: 100%;
+}
+.comment__box{
+    width: 80%;
+    padding: 15px 20px;
 }
 .user__info{
     display: flex;

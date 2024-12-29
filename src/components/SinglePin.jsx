@@ -262,6 +262,7 @@ function SinglePin() {
               placeholder="Add comment"
               className="input__field comment__box"
             />
+            <button className="btn btn__red ml-2">Post</button>
           </div>
         </div>
       </div>
