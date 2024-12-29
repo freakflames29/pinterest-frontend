@@ -503,3 +503,17 @@ button[disabled] {
     background: var(--grey);
     cursor: pointer;
 }
+.comment__section{
+    display: flex;
+}
+.comment__section img{
+
+    height: 36px;
+    object-fit: contain;
+}
+.info
+{
+    align-items: flex-start;
+    display: flex  ;
+    flex-direction: column;
+}

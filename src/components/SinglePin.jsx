@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { ROOT_URL } from "../Constants";
-import { useEffect } from "react";
+
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { userActions } from "../store/userSlice";
@@ -14,6 +14,9 @@ import MainLoader from "./MainLoader";
 import PROFILE_IMG from "../assets/images/duck.jpeg";
 import SmallProfile from "./SmallProfile";
 import { boardActions } from "../store/boardSlice";
+import { commentActions } from "../store/commentsSlice";
+import Comments from "./Comments.jsx";
+import comments from "./Comments.jsx";
 
 function SinglePin() {
   const params = useParams();
@@ -29,6 +32,12 @@ function SinglePin() {
   const [saveError,setSaveError] = useState(null)
   const [saveSucess,setSaveSucess] = useState(false)
 
+
+
+  // comment states loading and error
+  const [commentLoading,setCommentLoading ] = useState(true)
+  const [commentError,setCommentError] = useState(null)
+  
 
 
   // const userInfo = useSelector(state=>state.userReducer.user)
@@ -120,13 +129,50 @@ function SinglePin() {
     }
   }
 
+
+  async function fetchComments() {
+    console.log("Fetching comments....")
+      try{
+          setCommentLoading(true)
+
+          const res = await axios(`${ROOT_URL}pin/${singlePinInfo.id}/comments/`)
+          console.log("Post comments")
+          console.table(res.data)
+        if(res.data.length > 0)
+        {
+          dispatch(commentActions.setComments(res.data))
+
+        }
+        else{
+           dispatch(commentActions.removeComments())
+        }
+        setCommentError(null)
+      }
+      catch(e)
+      {
+        setCommentError(e.message)
+          console.log(e)
+      }finally{
+        setCommentLoading(false)
+      }
+  }
+
   useEffect(() => {
     fetchPinData();
+    // fethUserBoards();
+
   }, [userInfo]);
 
   useEffect(() => {
     fethUserBoards();
-  }, [userInfo]);
+  }, [userInfo,singlePinInfo]);
+
+  useEffect(() => {
+    fetchComments()
+  }, [singlePinInfo,userInfo]);
+
+
+
 
   if (loading) {
     return <MainLoader />;
@@ -145,7 +191,7 @@ function SinglePin() {
   function boardSelectHandler(e){
     // e.preventDefault()
     // console.log("EEEEEEEE")
-    console.log(typeof(e.target.value))
+    // console.log(typeof(e.target.value))
     setBoardSelect(e.target.value)
   }
 
@@ -183,7 +229,7 @@ function SinglePin() {
         </div>
         <div className="show__info">
           <div className="show__save__section">
-            <span>{ singlePinInfo.title }</span>
+            <span>{ singlePinInfo?.title }</span>
 
             <div className="board__list">
               <select name="cars" id="cars"  onChange={boardSelectHandler} className="options">
@@ -205,10 +251,9 @@ function SinglePin() {
           <div className="show__comments">
             <h3>Comments:</h3>
             <div className="restrict">
-              <SmallProfile name="Sourav" />
-              <SmallProfile name="Jhon" />
-              <SmallProfile name="BroStat" />
-              <SmallProfile name="LostMan" />
+
+              {commentLoading ? "Loading..." : <Comments/>}
+
             </div>
           </div>
           <div className="show__add_comment">
