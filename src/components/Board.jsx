@@ -1,5 +1,5 @@
 import React from 'react';
-import IMG from '../assets/images/capy.jpeg'
+import IMG from '../assets/images/placeholder.webp'
 
 const Board = (props) => {
     const imgList = []
@@ -29,11 +29,11 @@ const Board = (props) => {
                 </div>
                 <div className="board__right">
                     <div className="board__right__top">
-                        <img src={imgList[1]} alt="coverimg" className="small__img small__top"/>
+                        <img src={imgList[1]} alt="small top" className="small__img small__top"/>
 
                     </div>
                     <div className="board__right__down">
-                        <img src={imgList[2]} alt="coverimg" className="small__img small__down"/>
+                        <img src={imgList[2]} alt="small bottom" className="small__img small__down"/>
 
                     </div>
                 </div>

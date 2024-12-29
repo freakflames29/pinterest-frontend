@@ -59,7 +59,7 @@ function Nav() {
                     <div className="nav__right__el">
 
                         <Link to={"/profile"}>
-                            <img src={DUCK} alt=""/>
+                            <img src={DUCK} alt="" className={"nav__profile__img"}/>
                         </Link>
                     </div>
 
