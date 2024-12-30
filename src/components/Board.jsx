@@ -4,7 +4,7 @@ import IMG from '../assets/images/placeholder.webp'
 
 const Board = (props) => {
 
-    const [counter, setCounter] = useState(0)
+
 
     function getImageList() {
         const imgList = []
@@ -88,13 +88,13 @@ const Board = (props) => {
 
 
             <div className="borad__title">
-                <h1>{props?.name} {counter}</h1>
+                <h1>{props?.name} </h1>
                 <p>{props.pins.length} pins</p>
 
 
             </div>
 
-            <button onClick={() => setCounter(counter + 1)}>inc</button>
+
         </div>
     );
 };
