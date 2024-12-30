@@ -8,6 +8,7 @@ import axios from "axios";
 import Loader from "./Loader.jsx";
 import MainLoader from "./MainLoader.jsx";
 import { Link } from "react-router-dom";
+import ImageGrid from "./ImageGrid.jsx";
 
 function Home() {
     const [loading, setLoading] = useState(true)
@@ -59,16 +60,18 @@ function Home() {
         <>
             <div className="hero__container">
                 <div className="hero__image__section">
-                    {
-                        pinInfo.map(pin => (
-                            <Link to={`pin/${pin.id}`} key={pin.id}>
-                            <div  className={"image__list"}>
-                                <img src={pin.image} alt=""/>
-                                <span>{pin.username}</span>
-                            </div>
-                            </Link>
-                        ))
-                    }
+                    {/*{*/}
+                    {/*    pinInfo.map(pin => (*/}
+                    {/*        <Link to={`pin/${pin.id}`} key={pin.id}>*/}
+                    {/*        <div  className={"image__list"}>*/}
+                    {/*            <img src={pin.image} alt=""/>*/}
+                    {/*            <span>{pin.username}</span>*/}
+                    {/*        </div>*/}
+                    {/*        </Link>*/}
+                    {/*    ))*/}
+                    {/*}*/}
+
+                    <ImageGrid pinInfo = {pinInfo}/>
                 </div>
 
             </div>
