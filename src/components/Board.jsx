@@ -4,6 +4,9 @@ import IMG from '../assets/images/placeholder.webp'
 const Board = (props) => {
     const imgList = []
 
+
+    // !TODO:  fix logic only put 3 image in the imgList only dont push all the image and try to memoize this thing
+
     if (props.pins.length > 0) {
         // imgList
         for (let i = 0; i < props.pins.length; i++) {
