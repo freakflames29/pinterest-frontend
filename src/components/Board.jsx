@@ -5,12 +5,22 @@ const Board = (props) => {
     const imgList = []
 
 
-    // !TODO:  fix logic only put 3 image in the imgList only dont push all the image and try to memoize this thing
+    // !
+    // DONE
 
-    if (props.pins.length > 0) {
-        // imgList
-        for (let i = 0; i < props.pins.length; i++) {
-            imgList.push(props.pins[i]?.image)
+    if (props.pins.length > 0 ) {
+
+        if (props.pins.length >=3) {
+
+
+            for (let i = 0; i < 3; i++) {
+                imgList.push(props.pins[i]?.image)
+            }
+        }
+        else{
+            for (let i = 0; i < props.pins.length; i++) {
+                imgList.push(props.pins[i]?.image)
+            }
         }
     }
 
@@ -19,7 +29,7 @@ const Board = (props) => {
             imgList.push(IMG)
         }
     }
-    console.log("Image List", imgList)
+    console.log("Image List", imgList.length)
 
 
     return (
