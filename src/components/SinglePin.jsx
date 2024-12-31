@@ -174,6 +174,7 @@ function SinglePin() {
 
                 console.log(data)
                 dispatch(commentActions.addComments(data))
+                comment.current.value = ""
             } catch (e) {
                 console.log("Error in creating the comment.....", e)
                 setCommentCreateError(e.message)
