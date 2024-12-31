@@ -1,8 +1,18 @@
 import React, {useMemo, useState} from 'react';
 import IMG from '../assets/images/placeholder.webp'
+import {Link, useNavigate} from "react-router-dom";
+import useNewToken from "../hooks/useNewToken.js";
+import {useSelector} from "react-redux";
+import axios from "axios";
+import {ROOT_URL} from "../Constants.js";
 // import {get} from "axios";
 
 const Board = (props) => {
+
+    const userInfo = useSelector(state => state.userReducer.user)
+    const navigator = useNavigate()
+    const [tokenLoading,tokenErr,fetchToken] =  useNewToken(userInfo)
+
 
 
 
@@ -36,7 +46,7 @@ const Board = (props) => {
     //caching
     const boardCovers = useMemo(()=>getImageList(),[props.pins.length])
     //
-    console.log(boardCovers)
+    // console.log(boardCovers)
 
     // const imgList = []
     // if (props.pins.length > 0) {
@@ -66,9 +76,16 @@ const Board = (props) => {
     // DONE
 
 
+    const boardNavigate = async ()=>{
+            // navigator("/")
+            navigator(`/board/${props.boardId}`)
+    }
+
     return (
         <div className="board__card">
-            <div className="board__overlay"></div>
+            <div className="board__overlay" onClick={boardNavigate}>
+
+            </div>
 
             <div className="board__img">
                 <div className="board__cover">

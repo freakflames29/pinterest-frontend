@@ -7,6 +7,7 @@ import axios from "axios";
 import {ROOT_URL} from "../Constants.js";
 import {boardActions} from "../store/boardSlice.js";
 import Board from "./Board.jsx";
+import {userActions} from "../store/userSlice.js";
 
 const Profile = () => {
     const userInfo = useSelector(state => state.userReducer.user)
@@ -17,6 +18,11 @@ const Profile = () => {
     const [boardLoading, setBoardLoading] = useState(false)
     const [boardError, setBoardErr] = useState(null)
 
+
+    // testing
+    function removeUser(){
+        dispatch(userActions.polluteRefreshToken())
+    }
 
 
     async function fetchBoardDetails() {
@@ -33,8 +39,10 @@ const Profile = () => {
             dispatch(boardActions.setBoards(res.data))
             setBoardErr(null)
         } catch (e) {
+            console.log(e.status)
             if(e.status === 401){
-                fetchnewToken()
+                console.log("Im here")
+               await fetchnewToken()
             }
             setBoardErr(e.message)
         } finally {
@@ -63,14 +71,14 @@ const Profile = () => {
                     <img src={PROFILE_IMG} alt="#" className="profile__img"/>
                     <h1>{userInfo?.username}</h1>
                     <p>{userInfo?.email}</p>
-
+                    <button onClick={removeUser}>Clean user Redux store </button>
                 </div>
             </div>
             <div className="boards__container">
                  {/*<Board name={"Test"}/>*/}
                 {
                     boardInfo.map(board=>(
-                        <Board name ={board.name} key={board.id} pins={board.pins}/>
+                        <Board name ={board.name} key={board.id} pins={board.pins} boardId={board.id}/>
                     ))
                 }
             </div>

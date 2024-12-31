@@ -16,6 +16,11 @@ const userSlice = createSlice({
         setToken(state,action){
             state.user.token = action.payload.access
             // state.refresh = action.payload.refresh
+        },
+        // testing for refressh token expiry reload feature. TODO: delete this section code
+        polluteRefreshToken(state){
+            state.user.token+="fdf"
+            state.user.refresh += "ddd"
         }
     }
 })

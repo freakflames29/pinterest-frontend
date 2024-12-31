@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import {Navigate, useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {ROOT_URL} from "../Constants";
 
 import {useSelector} from "react-redux";
@@ -49,6 +49,7 @@ function SinglePin() {
 
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState(null);
+    const navigator = useNavigate()
 
     //! function if access token expires it fetches new acess token based on refresh token and updates the localstorage
 
@@ -66,6 +67,11 @@ function SinglePin() {
             setErr(null);
         } catch (e) {
             setErr(e.message);
+            if(e.status === 401){
+            //     means: refresh token is also expired, then have to login again
+                localStorage.clear()
+
+            }
             console.log(e);
         } finally {
             setLoading(false);

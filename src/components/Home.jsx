@@ -58,8 +58,8 @@ function Home() {
 
     return (
         <>
-            <div className="hero__container">
-                <div className="hero__image__section">
+            {/*<div className="hero__container">*/}
+            {/*    <div className="hero__image__section">*/}
                     {/*{*/}
                     {/*    pinInfo.map(pin => (*/}
                     {/*        <Link to={`pin/${pin.id}`} key={pin.id}>*/}
@@ -72,9 +72,9 @@ function Home() {
                     {/*}*/}
 
                     <ImageGrid pinInfo = {pinInfo}/>
-                </div>
+            {/*    </div>*/}
 
-            </div>
+            {/*</div>*/}
         </>
     );
 }

@@ -10,12 +10,13 @@ import Home from "./components/Home";
 import Nav from "./components/Nav";
 import SinglePin from "./components/SinglePin";
 import Profile from "./components/Profile.jsx";
+import UserBoard from "./components/UserBoard.jsx";
 
 function App() {
 
 
-
-  
+  //
+  //
   const router = createBrowserRouter([
     {
       path: "/",
@@ -30,13 +31,17 @@ function App() {
           element: <SinglePin />,
         },
         {
-          path: "profile",
+          path: "profile/",
           element: <Profile />,
+        },
+        {
+          path: "board/:boardId/",
+          element: <UserBoard />,
         },
       ],
     },
     {
-      path: "auth/",
+      path: "/auth/",
       element: <Auth />,
     },
   ]);

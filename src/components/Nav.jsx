@@ -13,8 +13,12 @@ function Nav() {
 
     const userInfo = useSelector(state => state.userReducer.user)
 
+
+    //TODO: remove userInfo checking at nav, check where the userLogin required.
     // it checks if user data present in localstorage and if present loads the data redux store
     function localStorageDataToReduxStore() {
+
+
         const data = localStorage.getItem("userInfo");
         if (data) {
             let parsedData = JSON.parse(data);
