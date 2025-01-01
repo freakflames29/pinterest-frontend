@@ -11,9 +11,7 @@ const Board = (props) => {
 
     const userInfo = useSelector(state => state.userReducer.user)
     const navigator = useNavigate()
-    const [tokenLoading,tokenErr,fetchToken] =  useNewToken(userInfo)
-
-
+    const [tokenLoading, tokenErr, fetchToken] = useNewToken(userInfo)
 
 
     function getImageList() {
@@ -44,41 +42,17 @@ const Board = (props) => {
     }
 
     //caching
-    const boardCovers = useMemo(()=>getImageList(),[props.pins.length])
-    //
-    // console.log(boardCovers)
-
-    // const imgList = []
-    // if (props.pins.length > 0) {
-    //
-    //     if (props.pins.length >= 3) {
-    //
-    //
-    //         for (let i = 0; i < 3; i++) {
-    //             imgList.push(props.pins[i]?.image)
-    //         }
-    //     } else {
-    //         for (let i = 0; i < props.pins.length; i++) {
-    //             imgList.push(props.pins[i]?.image)
-    //         }
-    //     }
-    // }
-    //
-    // if (imgList.length < 3) {
-    //     while (imgList.length !== 3) {
-    //         imgList.push(IMG)
-    //     }
-    // }
-
-    // console.log("Image List", imgList.length)
-
-    // !
-    // DONE
+    const boardCovers = useMemo(() => getImageList(), [props.pins.length])
 
 
-    const boardNavigate = async ()=>{
-            // navigator("/")
-            navigator(`/board/${props.boardId}`)
+    const boardNavigate = async () => {
+        // navigator("/")
+
+        const boardInfo = {
+            name:props.name,
+            pinLength:props.pins.length
+        }
+        navigator(`/board/${props.boardId}`,{state:boardInfo})
     }
 
     return (

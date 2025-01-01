@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import useNewToken from "../hooks/useNewToken.js";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
@@ -7,6 +7,7 @@ import {ROOT_URL} from "../Constants.js";
 import MainLoader from "./MainLoader.jsx";
 import {pinActions} from "../store/pinSlice.js";
 import ImageGrid from "./ImageGrid.jsx";
+
 const UserBoard = () => {
     const params = useParams()
 
@@ -15,6 +16,9 @@ const UserBoard = () => {
 
     const [tokenLoading, tokenErr, fetchToken] = useNewToken(userInfo)
 
+    const boardLocationProp = useLocation() // it recives the state props from useNavigation hook
+    console.log(boardLocationProp)
+
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false)
@@ -22,53 +26,57 @@ const UserBoard = () => {
     const [boards, setBoards] = useState([])
 
 
-    const fetchBoardPins = async (props)=>{
-            // navigator("/")
+    const fetchBoardPins = async (props) => {
+        // navigator("/")
+        console.log(userInfo)
         // console.log("Board ID: ",props.boardId)
 
-        try{
+        try {
             setLoading(true)
-            const res = await axios(`${ROOT_URL}board/${params.boardId}/pins/`,{
-                headers:{
-                    "Authorization":`Bearer ${userInfo.token}`
+            const res = await axios(`${ROOT_URL}board/${params.boardId}/pins/`, {
+                headers: {
+                    "Authorization": `Bearer ${userInfo.token}`
                 }
             })
 
             console.log(res.data)
             dispatch(pinActions.setAllPin(res.data))
             setErr(null)
-        }
-        catch (e){
-            if(e.status === 401){
+        } catch (e) {
+            if (e.status === 401) {
                 // fet
                 fetchToken()
                 console.log("e)")
             }
             setErr(e.message)
 
-        }
-        finally {
+        } finally {
             setLoading(false)
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchBoardPins()
-    },[])
+    }, [userInfo])
 
 
-    if(loading || tokenLoading){
+    if (loading || tokenLoading) {
         return <MainLoader/>
     }
-    if(err || tokenErr){
+    if (err || tokenErr) {
         return <h1>{err}</h1>
     }
 
     return (
         <div>
             {/*<h1>{params.boardId}</h1>*/}
+            <div className="board__title">
 
-            <ImageGrid pinInfo = {pinInfo}/>
+                <h1>{boardLocationProp.state.name}</h1>
+                <p>{boardLocationProp.state.pinLength} pins</p>
+            </div>
+
+            <ImageGrid pinInfo={pinInfo}/>
         </div>
     );
 };

@@ -797,3 +797,9 @@ button[disabled] {
 label {
     cursor: pointer;
 }
+.board__title{
+    width: 80%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
