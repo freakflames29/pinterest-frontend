@@ -15,7 +15,7 @@ function HomeNav() {
           {/* Image */}
 
           <img src={LOGO} alt="" className="logo__img" />
-          <span className="logo__text">Goluterest</span>
+          <span className="logo__text">Pinterest</span>
         </Link>
         <span className="nav__item">Today</span>
         <span className="nav__item">Watch</span>

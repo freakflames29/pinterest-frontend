@@ -123,7 +123,7 @@ function SignUp(props) {
 
 
                 <img src={LOGO} alt="" className="signup__pin__logo"/>
-                <h2>Welcome to Goluterest</h2>
+                <h2>Welcome to Pinterest</h2>
                 {props.login && <span>Find new ideas to try</span>}
 
                 {error &&
@@ -164,9 +164,9 @@ function SignUp(props) {
                     <button className="btn btn__red"
                             onClick={sendData}>{props.login ? "Contiune" : "Login"}</button>
 
-                    {props.login ? (<span className="info">
+                    {props.login ? (<span className="info__auth">
                               Already have and account? <span className={"bold red underline"} onClick={toggleIt}>Login</span>
-                            </span>) : (<span className="info">
+                            </span>) : (<span className="info__auth">
                               Dont have account ? <span className={"bold red underline"} onClick={toggleIt}>Signup</span>
                             </span>)}
                 </div>

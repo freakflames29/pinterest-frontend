@@ -71,7 +71,7 @@ const Profile = () => {
                     <img src={PROFILE_IMG} alt="#" className="profile__img"/>
                     <h1>{userInfo?.username}</h1>
                     <p>{userInfo?.email}</p>
-                    <button onClick={removeUser}>Clean user Redux store </button>
+                    {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
                 </div>
             </div>
             <div className="boards__container">
