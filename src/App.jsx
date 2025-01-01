@@ -41,7 +41,7 @@ function App() {
       ],
     },
     {
-      path: "/auth/",
+      path: "/auth",
       element: <Auth />,
     },
   ]);

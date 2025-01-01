@@ -11,6 +11,8 @@ function Nav() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    console.log("I am from Main Nav component")
+
     const userInfo = useSelector(state => state.userReducer.user)
 
 
