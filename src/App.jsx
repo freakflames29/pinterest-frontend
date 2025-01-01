@@ -11,6 +11,7 @@ import Nav from "./components/Nav";
 import SinglePin from "./components/SinglePin";
 import Profile from "./components/Profile.jsx";
 import UserBoard from "./components/UserBoard.jsx";
+import Create from "./components/Create.jsx";
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
         {
           path: "board/:boardId/",
           element: <UserBoard />,
+        },{
+          path: "create/",
+          element: <Create />,
         },
       ],
     },

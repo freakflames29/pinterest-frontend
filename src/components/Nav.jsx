@@ -48,7 +48,9 @@ function Nav() {
                     </Link>
                     {/*<span>Home</span>*/}
                     <span className={"main__nav__item"}>explore</span>
-                    <span className={"main__nav__item"}>Create</span>
+                    <span className={"main__nav__item"}>
+                        <Link to={"/create"}>Create</Link>
+                    </span>
                 </div>
                 <div className="main__nav__middle">
                     <FaSearch/>
