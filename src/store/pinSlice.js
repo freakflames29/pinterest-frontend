@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    allPin:null,
+    allPin:[],
     singlePin:null,
 }
 
@@ -10,7 +10,7 @@ const pinSlice = createSlice({
     initialState,
     reducers:{
         setAllPin(state,action){
-            state.allPin = action.payload
+            state.allPin =[...action.payload]
 
         },
         removeAllPin(state){
@@ -20,6 +20,9 @@ const pinSlice = createSlice({
         setSinglePin(state,action){
             state.singlePin = action.payload
 
+        },
+        addPinToAllPin(state,action){
+            state.allPin = [...state.allPin,action.payload]
         },
         removeSinglePin(state){
 
