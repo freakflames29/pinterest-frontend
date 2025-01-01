@@ -7,6 +7,10 @@ import {ROOT_URL} from "../Constants.js";
 import {pinActions} from "../store/pinSlice.js";
 import {useNavigate} from "react-router-dom";
 
+import {GrUploadOption} from "react-icons/gr";
+import { MdEdit } from "react-icons/md";
+
+
 const Create = () => {
     const userInfo = useSelector(state => state.userReducer.user)
     const allPin = useSelector(state => state.pinReducer.allPin)
@@ -18,20 +22,32 @@ const Create = () => {
     const [createLoading, setCreateLoading] = useState(false)
     const [createError, setCreateError] = useState(null)
 
+
     const navigator = useNavigate()
+    const [image, setImage] = useState(null)
     // const [data,]
     const title = useRef()
     const desc = useRef()
     const link = useRef()
-    const image = useRef()
+    // const image = useRef()
     // console.log(title)
 
+    // const imageHandler = e =>{
+    //     setImage(e.target.files[0])
+    // }
+
+
     const createHandler = async () => {
+        //
+        // console.log(image)
+        // const img = URL.createObjectURL(image)
+        // console.log(img)
+        // return;
         const payload = {
-            title: title.current?.value ,
+            title: title.current?.value,
             desc: desc.current?.value,
-            link: link.current?.value ,
-            image: image.current?.files[0]
+            link: link.current?.value,
+            image: image
         }
         console.table("payload", payload)
 
@@ -51,7 +67,7 @@ const Create = () => {
 
 
             dispatch(pinActions.addPinToAllPin(res.data))
-            navigator("/")
+            navigator("/") //TODO: CHange it to user pin create section
 
 
         } catch (e) {
@@ -81,16 +97,57 @@ const Create = () => {
 
 
     return (
-        <div>
-            <input type="file" accept={"image/*"} ref={image}/>
-            <input type="text" placeholder={"Title"} ref={title}/>
-            <textarea name="desc" id="desc" cols="30" rows="10" placeholder={"Enter desc"} ref={desc}/>
+        <>
+            <div className="create__heading">
+                <div className="heading__elm">
 
-            <input type="text" placeholder={"Enter link "} ref={link}/>
+                    <h2>Create Pin</h2>
+                    <button className={"btn btn__red"}
+                            onClick={createHandler}>{loading || createLoading ? "Publishing..." : "Publish"}</button>
+                </div>
+            </div>
+            <div className="create__container">
+                <div className="create__section">
+                    <div className="create__image__upload">
+                        <input type="file" id={"img"} accept={"image/*"}
+                               onChange={(e) => setImage(e.target.files[0])} className={"image__file__field"}/>
 
-            <button onClick={createHandler}>Create Pin</button>
-        </div>
-    );
+                        {image === null ?
+                            <>
+                                <label htmlFor="img" className={"create__image__section"}>
+                                    <GrUploadOption/>
+                                    Choose an Image
+
+                                </label>
+
+
+                            </> :
+
+                            <div className="selected__img">
+
+                                <img src={URL.createObjectURL(image)} alt=""/>
+                                <label htmlFor="img">
+                                    <MdEdit />
+                                    Choose another
+                                </label>
+                            </div>
+                        }
+
+                    </div>
+
+                    <div className="create__info__section">
+                        <input type="text" placeholder="Enter title of the pin" ref={title} className={"form__field"}/>
+                        <input type="text" placeholder={"Enter link of the pin "} ref={link} className={"form__field"}/>
+                        <textarea name="desc" id="desc" cols="30" rows="10" placeholder={"Enter desc about the pin"}
+                                  ref={desc}
+                                  className={"form__field"}/>
+                    </div>
+                </div>
+            </div>
+
+        </>
+    )
+        ;
 };
 
 export default Create;
