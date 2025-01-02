@@ -8,6 +8,8 @@ import {ROOT_URL} from "../Constants.js";
 import {boardActions} from "../store/boardSlice.js";
 import Board from "./Board.jsx";
 import {userActions} from "../store/userSlice.js";
+import {Link, Outlet} from "react-router-dom";
+import SavedPins from "./SavedPins.jsx";
 
 const Profile = () => {
     const userInfo = useSelector(state => state.userReducer.user)
@@ -74,14 +76,16 @@ const Profile = () => {
                     {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
                 </div>
             </div>
-            <div className="boards__container">
-                 {/*<Board name={"Test"}/>*/}
-                {
-                    boardInfo.map(board=>(
-                        <Board name ={board.name} key={board.id} pins={board.pins} boardId={board.id}/>
-                    ))
-                }
+            <div className="saved__created__toggle__container">
+                {/*TODO: Add navlink instead of link */}
+                <Link to={"created/"}>Created</Link>
+                <Link to={"saved/"}>Saved</Link>
             </div>
+
+            <Outlet/>
+
+
+
         </>
     );
 };

@@ -12,6 +12,8 @@ import SinglePin from "./components/SinglePin";
 import Profile from "./components/Profile.jsx";
 import UserBoard from "./components/UserBoard.jsx";
 import Create from "./components/Create.jsx";
+import SavedPins from "./components/SavedPins.jsx";
+import CreatedPins from "./components/CreatedPins.jsx";
 
 function App() {
 
@@ -34,6 +36,16 @@ function App() {
         {
           path: "profile/",
           element: <Profile />,
+          children:[
+            {
+              path:"saved/",
+              element: <SavedPins/> //TODO:ADD SAVED COPONENT
+            },
+            {
+              path:"created/",
+              element:<CreatedPins/>
+            }
+          ]
         },
         {
           path: "board/:boardId/",
