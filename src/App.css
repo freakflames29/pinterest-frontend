@@ -15,13 +15,16 @@
     --text-box-radius: 16px;
     --grey: #e2e2e2;
 }
-a{
+
+a {
     text-decoration: none;
     color: #000;
 }
-a:hover{
+
+a:hover {
     text-decoration: underline;
 }
+
 .container {
     width: 100%;
     height: 8vh;
@@ -753,7 +756,7 @@ button[disabled] {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-height:5%;
+    max-height: 5%;
 }
 
 .selected__img {
@@ -803,13 +806,15 @@ button[disabled] {
 label {
     cursor: pointer;
 }
-.board__title{
+
+.board__title {
     width: 80%;
     margin: auto;
     margin-top: 5%;
     margin-bottom: 10%;
 }
-.saved__created__toggle__container{
+
+.saved__created__toggle__container {
     width: 90%;
     margin: auto;
     /*background: red;*/
@@ -817,7 +822,7 @@ label {
     margin-bottom: 2%;
 }
 
-.saved__created__toggle__container a{
+.saved__created__toggle__container a {
     margin-right: 10px;
     text-decoration: none;
     font-size: 1.2em;
@@ -825,18 +830,21 @@ label {
     border-radius: 15px;
 
 }
-.saved__created__toggle__container a:hover
-{
+
+.saved__created__toggle__container a:hover {
     background: #e3e3e3;
 
 }
-.create__btn__container{
+
+.create__btn__container {
     width: 95%;
     display: flex;
     justify-content: flex-end;
-    font-size: 2em;
+    position: relative;
+
 }
-.create__btn{
+
+.create__btn {
     /*background: red;*/
     width: 50px;
     height: 50px;
@@ -845,8 +853,55 @@ label {
     align-items: center;
     border-radius: 100%;
     cursor: pointer;
+    font-size: 1.4em;
 }
-.create__btn:hover{
+
+.create__btn:hover {
+    background: #e1e1e1;
+
+}
+
+.active {
+    background: black;
+    color: #fff;
+    transition: ease;
+}
+
+.active svg {
+    transition: 0.2s ease;
+
+    transform: rotate(45deg);
+}
+
+.active:hover {
+    background: black;
+    color: #fff;
+}
+
+.modal {
+    width: 150px;
+    height: 125px;
+    background: #ffffff;
+    border-radius: 15px;
+    position: absolute;
+    top: 105%;
+    z-index: 1000;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    font-size: 10px;
+    padding: 15px 10px;
+}
+
+.modal .modal_title {
+    display: block;
+    margin-top: 8px;
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal_title:hover {
     background: #e1e1e1;
 
 }

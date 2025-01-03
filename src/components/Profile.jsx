@@ -11,7 +11,7 @@ import {userActions} from "../store/userSlice.js";
 import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
 import SavedPins from "./SavedPins.jsx";
 
-import { FaPlus } from "react-icons/fa6";
+import {FaPlus} from "react-icons/fa6";
 
 
 const Profile = () => {
@@ -22,6 +22,9 @@ const Profile = () => {
     const dispatch = useDispatch()
     const [boardLoading, setBoardLoading] = useState(false)
     const [boardError, setBoardErr] = useState(null)
+
+    const [modalShow, setModalShow] = useState(false)
+
 
     // to check the pathname
     const location = useLocation()
@@ -74,45 +77,53 @@ const Profile = () => {
 
 
     return (<>
-            {/*IT will redirect profile to profile/saved/ */}
-            {/*<Navigate to={"saved/"}/> */}
+        {/*IT will redirect profile to profile/saved/ */}
+        {/*<Navigate to={"saved/"}/> */}
 
-            <div className="profile__container">
-                <div className="profile__section">
-                    <img src={PROFILE_IMG} alt="#" className="profile__img"/>
-                    <h1>{userInfo?.username}</h1>
-                    <p>{userInfo?.email}</p>
-                    {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
+        <div className="profile__container">
+            <div className="profile__section">
+                <img src={PROFILE_IMG} alt="#" className="profile__img"/>
+                <h1>{userInfo?.username}</h1>
+                <p>{userInfo?.email}</p>
+                {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
+            </div>
+        </div>
+        <div className="saved__created__toggle__container">
+            {/*TODO: Add navlink instead of link */}
+            <Link to={"created/"}>Created</Link>
+            <Link to={"saved/"}>Saved</Link>
+        </div>
+
+        <div className="create__btn__container ">
+            <div className={`create__btn ${modalShow && "active"}`} onClick={()=>setModalShow(prevState => !prevState)}>
+
+                <FaPlus/>
+            </div>
+
+            {modalShow &&
+                <div className="modal">
+                    <span>Create</span>
+                    <span className="modal_title">Pin</span>
+                    <span className="modal_title">Board</span>
                 </div>
-            </div>
-            <div className="saved__created__toggle__container">
-                {/*TODO: Add navlink instead of link */}
-                <Link to={"created/"}>Created</Link>
-                <Link to={"saved/"}>Saved</Link>
-            </div>
+            }
 
-            <div className="create__btn__container">
-               <div className="create__btn">
-
-                <FaPlus />
-               </div>
-
-            </div>
+        </div>
 
 
-            <Outlet/>
+        <Outlet/>
 
-            {/* if location pathname is profile i want to show the boards if changed to boards the boards will be there if created path the created pins will be there*/}
-            {location.pathname === "/profile" && <div className="boards__container">
-
-
-                {boardInfo.map(board => (
-                    <Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
-
-            </div>}
+        {/* if location pathname is profile i want to show the boards if changed to boards the boards will be there if created path the created pins will be there*/}
+        {location.pathname === "/profile" && <div className="boards__container">
 
 
-        </>);
+            {boardInfo.map(board => (
+                <Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
+
+        </div>}
+
+
+    </>);
 };
 
 export default Profile;
