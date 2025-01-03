@@ -8,8 +8,11 @@ import {ROOT_URL} from "../Constants.js";
 import {boardActions} from "../store/boardSlice.js";
 import Board from "./Board.jsx";
 import {userActions} from "../store/userSlice.js";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
 import SavedPins from "./SavedPins.jsx";
+
+import { FaPlus } from "react-icons/fa6";
+
 
 const Profile = () => {
     const userInfo = useSelector(state => state.userReducer.user)
@@ -20,9 +23,13 @@ const Profile = () => {
     const [boardLoading, setBoardLoading] = useState(false)
     const [boardError, setBoardErr] = useState(null)
 
+    // to check the pathname
+    const location = useLocation()
+    console.log(location.pathname)
+
 
     // testing
-    function removeUser(){
+    function removeUser() {
         dispatch(userActions.polluteRefreshToken())
     }
 
@@ -42,9 +49,9 @@ const Profile = () => {
             setBoardErr(null)
         } catch (e) {
             console.log(e.status)
-            if(e.status === 401){
+            if (e.status === 401) {
                 console.log("Im here")
-               await fetchnewToken()
+                await fetchnewToken()
             }
             setBoardErr(e.message)
         } finally {
@@ -66,8 +73,10 @@ const Profile = () => {
     }
 
 
-    return (
-        <>
+    return (<>
+            {/*IT will redirect profile to profile/saved/ */}
+            {/*<Navigate to={"saved/"}/> */}
+
             <div className="profile__container">
                 <div className="profile__section">
                     <img src={PROFILE_IMG} alt="#" className="profile__img"/>
@@ -82,12 +91,28 @@ const Profile = () => {
                 <Link to={"saved/"}>Saved</Link>
             </div>
 
+            <div className="create__btn__container">
+               <div className="create__btn">
+
+                <FaPlus />
+               </div>
+
+            </div>
+
+
             <Outlet/>
 
+            {/* if location pathname is profile i want to show the boards if changed to boards the boards will be there if created path the created pins will be there*/}
+            {location.pathname === "/profile" && <div className="boards__container">
 
 
-        </>
-    );
+                {boardInfo.map(board => (
+                    <Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
+
+            </div>}
+
+
+        </>);
 };
 
 export default Profile;

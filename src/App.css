@@ -830,3 +830,23 @@ label {
     background: #e3e3e3;
 
 }
+.create__btn__container{
+    width: 95%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2em;
+}
+.create__btn{
+    /*background: red;*/
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.create__btn:hover{
+    background: #e1e1e1;
+
+}
