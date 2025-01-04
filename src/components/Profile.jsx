@@ -8,7 +8,7 @@ import {ROOT_URL} from "../Constants.js";
 import {boardActions} from "../store/boardSlice.js";
 import Board from "./Board.jsx";
 import {userActions} from "../store/userSlice.js";
-import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
+import {Link, Navigate, Outlet, useLocation,NavLink} from "react-router-dom";
 import SavedPins from "./SavedPins.jsx";
 import BoardCreateModal from "./BoadCreateModal.jsx"
 
@@ -97,8 +97,8 @@ const Profile = () => {
         </div>
         <div className="saved__created__toggle__container">
             {/*TODO: Add navlink instead of link */}
-            <Link to={"created/"}>Created</Link>
-            <Link to={"saved/"}>Saved</Link>
+            <NavLink to={"created/"} className={({isActive})=>(isActive ? "navlink__active" :"navlink")}>Created</NavLink>
+            <NavLink to={"saved/"} className={({isActive})=>(isActive ? "navlink__active" :"navlink")}>Saved</NavLink>
         </div>
 
         <div className="create__btn__container ">

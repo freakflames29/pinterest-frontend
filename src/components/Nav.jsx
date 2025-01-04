@@ -1,4 +1,4 @@
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Link, Outlet, useNavigate,NavLink} from "react-router-dom";
 import PINSVG from "../assets/images/pinsvg.svg";
 import DUCK from "../assets/images/duck.jpeg";
 import {FaSearch} from "react-icons/fa";
@@ -49,7 +49,7 @@ function Nav() {
                     {/*<span>Home</span>*/}
                     <span className={"main__nav__item"}>explore</span>
                     <span className={"main__nav__item"}>
-                        <Link to={"/create"}>Create</Link>
+                        <NavLink to={"/create"} className={({isActive})=>(isActive && "nav__menu__active")}>Create</NavLink>
                     </span>
                 </div>
                 <div className="main__nav__middle">

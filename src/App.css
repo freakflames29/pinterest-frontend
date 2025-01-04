@@ -823,18 +823,39 @@ label {
 }
 
 .saved__created__toggle__container a {
+    text-decoration: none;
+}
+
+.saved__created__toggle__container .navlink {
     margin-right: 10px;
     text-decoration: none;
     font-size: 1.2em;
     padding: 10px 20px;
     border-radius: 15px;
+    text-decoration: none;
 
 }
 
-.saved__created__toggle__container a:hover {
+.saved__created__toggle__container .navlink:hover {
     background: #e3e3e3;
 
 }
+
+.navlink__active {
+    border-radius: 1px;
+    border-bottom: 2px solid;
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px 20px;
+    /*color: #fff;*/
+}
+
+/*.navlink__active:hover {*/
+/*    background: black;*/
+/*    color: #fff;*/
+/*}*/
 
 .create__btn__container {
     width: 95%;
@@ -906,24 +927,27 @@ label {
     background: #e1e1e1;
 
 }
-.wrapper__div{
+
+.wrapper__div {
     position: relative;
 }
-.modal__container{
+
+.modal__container {
     position: absolute;
     z-index: 12090;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     /*background: rgba(0, 0, 0, 0.51);*/
-    top:0;
+    top: 0;
     display: flex;
     justify-content: center;
     /*align-items: center;*/
 }
-.modal__box{
+
+.modal__box {
     width: 500px;
     background: #fff;
-    height: 30%;
+    height: 24%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -932,7 +956,8 @@ label {
     border-radius: 15px;
     z-index: 100000;
 }
-.modalClose{
+
+.modalClose {
     width: 100%;
     position: absolute;
 
@@ -940,18 +965,30 @@ label {
 
     height: 100%;
 }
-.modal__box h1{
+
+.modal__box h1 {
     padding-bottom: 10px;
 }
-.modal__input{
+
+.modal__input {
     display: flex;
     flex-direction: column;
     width: 80%;
 }
-.modal__input input[type="text"]{
-    width: 100% ;
+
+.modal__input input[type="text"] {
+    width: 100%;
     margin-bottom: 13px;
 }
-.modal__input label{
+
+.modal__input label {
     margin-bottom: 10px;
+}
+
+.nav__menu__active {
+    padding: 15px 20px;
+    background: black;
+    color: white;
+    border-radius: 24px;
+    text-decoration: none;
 }
