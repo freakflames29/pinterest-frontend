@@ -10,6 +10,7 @@ import Board from "./Board.jsx";
 import {userActions} from "../store/userSlice.js";
 import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
 import SavedPins from "./SavedPins.jsx";
+import BoardCreateModal from "./BoadCreateModal.jsx"
 
 import {FaPlus} from "react-icons/fa6";
 
@@ -25,6 +26,12 @@ const Profile = () => {
 
     const [modalShow, setModalShow] = useState(false)
 
+    const [boardModalToggle, setBoardModalToggle] = useState(false)
+
+
+    const modalToggleHandler = ()=>{
+        setBoardModalToggle(prevState => !prevState)
+    }
 
     // to check the pathname
     const location = useLocation()
@@ -76,7 +83,7 @@ const Profile = () => {
     }
 
 
-    return (<>
+    return (<div className={"wrapper__div"}>
         {/*IT will redirect profile to profile/saved/ */}
         {/*<Navigate to={"saved/"}/> */}
 
@@ -95,18 +102,22 @@ const Profile = () => {
         </div>
 
         <div className="create__btn__container ">
-            <div className={`create__btn ${modalShow && "active"}`} onClick={()=>setModalShow(prevState => !prevState)}>
+            <div className={`create__btn ${modalShow && "active"}`}
+                 onClick={() => setModalShow(prevState => !prevState)}>
 
                 <FaPlus/>
             </div>
 
-            {modalShow &&
-                <div className="modal">
-                    <span>Create</span>
-                    <span className="modal_title">Pin</span>
-                    <span className="modal_title">Board</span>
-                </div>
-            }
+            {modalShow && <div className="modal">
+                <span>Create</span>
+                <Link to={"/create"} className="modal_title">
+                    Pin
+                </Link>
+                <span className="modal_title" onClick={modalToggleHandler}>
+                        Board
+                </span>
+            </div>}
+
 
         </div>
 
@@ -117,13 +128,14 @@ const Profile = () => {
         {location.pathname === "/profile" && <div className="boards__container">
 
 
-            {boardInfo.map(board => (
-                <Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
+            {boardInfo.map(board => (<Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
 
         </div>}
 
+        {boardModalToggle && <BoardCreateModal toggle={boardModalToggle} toggleFun={modalToggleHandler}/>}
 
-    </>);
+
+    </div>);
 };
 
 export default Profile;
