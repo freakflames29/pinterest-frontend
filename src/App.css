@@ -914,7 +914,7 @@ label {
     z-index: 12090;
     width: 100%;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.51);
+    /*background: rgba(0, 0, 0, 0.51);*/
     top:0;
     display: flex;
     justify-content: center;
@@ -930,6 +930,15 @@ label {
     margin-top: 10%;
     padding-top: 2%;
     border-radius: 15px;
+    z-index: 100000;
+}
+.modalClose{
+    width: 100%;
+    position: absolute;
+
+    background: rgba(0, 0, 0, 0.51);
+
+    height: 100%;
 }
 .modal__box h1{
     padding-bottom: 10px;

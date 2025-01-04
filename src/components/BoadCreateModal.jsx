@@ -6,7 +6,8 @@ const BoadCreateModal = (props) => {
         props.toggleFun()
     }
     return (
-        <div className={"modal__container"} onClick={modalClose}>
+        <div className={"modal__container"} >
+            <div className="modalClose" onClick={modalClose}></div>
             <div className="modal__box">
                 <h1>Create Board</h1>
                 <div className="modal__input">
