@@ -950,6 +950,7 @@ label {
 }
 .modal__input input[type="text"]{
     width: 100% ;
+    margin-bottom: 13px;
 }
 .modal__input label{
     margin-bottom: 10px;
