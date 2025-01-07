@@ -32,6 +32,8 @@ const Profile = () => {
     const [profileLoading, setProfileLodaing] = useState(false)
     const [profileError, setProfileError] = useState(null)
 
+    const [profileImage, setProfileImage] = useState(null)
+
 
     const modalToggleHandler = () => {
         setBoardModalToggle(prevState => !prevState)
@@ -97,80 +99,93 @@ const Profile = () => {
     }
 
 
-    useEffect(() => {
-        fetchBoardDetails()
-        fetchUserProfileInfo()
-
-
-    }, [userInfo]);
-
-
-    if (loading || boardLoading || profileLoading) {
-        return <MainLoader/>
-    }
-    if (err || boardError || profileError) {
-        return <h1>{err}</h1>
+    const imagePatchHandler = async () =>{
+    //     TODO: add image patch request here.
     }
 
+    const imageChangeHandler = (e) => {
+        setProfileImage(e.target.files[0])
+        console.log(e.target.files[0])
 
-    return (<div className={"wrapper__div"}>
-        {/*IT will redirect profile to profile/saved/ */}
-        {/*<Navigate to={"saved/"}/> */}
+    }
 
-        <div className="profile__container">
-            <div className="profile__section">
-                {profileInfo ? <img src={profileInfo.profile_img} alt="#" className="profile__img"/> :
-                    <img src={PROFILE_IMG} alt="#" className="profile__img"/>}
+        useEffect(() => {
+            fetchBoardDetails()
+            fetchUserProfileInfo()
 
-                <h1>{userInfo?.username}</h1>
-                <p>{userInfo?.email}</p>
-                {profileInfo && <p className={"profile__desc"}>{profileInfo.desc}</p>}
-                {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
+
+        }, [userInfo]);
+
+
+        if (loading || boardLoading || profileLoading) {
+            return <MainLoader/>
+        }
+        if (err || boardError || profileError) {
+            return <h1>{err}</h1>
+        }
+
+
+        return (<div className={"wrapper__div"}>
+            {/*IT will redirect profile to profile/saved/ */}
+            {/*<Navigate to={"saved/"}/> */}
+
+            <div className="profile__container">
+                <div className="profile__section">
+                    {profileInfo ? <img src={profileInfo.profile_img} alt="#" className="profile__img"/> :
+                        <img src={PROFILE_IMG} alt="#" className="profile__img"/>}
+
+                    <h1>{userInfo?.username}</h1>
+                    <p>{userInfo?.email}</p>
+                    {profileInfo && <p className={"profile__desc"}>{profileInfo.desc}</p>}
+                    <input type="file" accept={"image/*"} onChange={imageChangeHandler}/>
+                    <button onClick={imagePatchHandler}>Save image</button>
+                    {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
+                </div>
             </div>
-        </div>
-        <div className="saved__created__toggle__container">
-            {/*TODO: Add navlink instead of link */}
-            <NavLink to={"created/"}
-                     className={({isActive}) => (isActive ? "navlink__active" : "navlink")}>Created</NavLink>
-            <NavLink to={"saved/"}
-                     className={({isActive}) => (isActive ? "navlink__active" : "navlink")}>Saved</NavLink>
-        </div>
-
-        <div className="create__btn__container ">
-            <div className={`create__btn ${modalShow && "active"}`}
-                 onClick={() => setModalShow(prevState => !prevState)}>
-
-                <FaPlus/>
+            <div className="saved__created__toggle__container">
+                {/*TODO: Add navlink instead of link */}
+                <NavLink to={"created/"}
+                         className={({isActive}) => (isActive ? "navlink__active" : "navlink")}>Created</NavLink>
+                <NavLink to={"saved/"}
+                         className={({isActive}) => (isActive ? "navlink__active" : "navlink")}>Saved</NavLink>
             </div>
 
-            {modalShow && <div className="modal">
-                <span>Create</span>
-                <Link to={"/create"} className="modal_title">
-                    Pin
-                </Link>
-                <span className="modal_title" onClick={modalToggleHandler}>
+            <div className="create__btn__container ">
+                <div className={`create__btn ${modalShow && "active"}`}
+                     onClick={() => setModalShow(prevState => !prevState)}>
+
+                    <FaPlus/>
+                </div>
+
+                {modalShow && <div className="modal">
+                    <span>Create</span>
+                    <Link to={"/create"} className="modal_title">
+                        Pin
+                    </Link>
+                    <span className="modal_title" onClick={modalToggleHandler}>
                         Board
                 </span>
+                </div>}
+
+
+            </div>
+
+
+            <Outlet/>
+
+            {/* if location pathname is profile i want to show the boards if changed to boards the boards will be there if created path the created pins will be there*/}
+            {location.pathname === "/profile" && <div className="boards__container">
+
+
+                {boardInfo.map(board => (
+                    <Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
+
             </div>}
 
-
-        </div>
-
-
-        <Outlet/>
-
-        {/* if location pathname is profile i want to show the boards if changed to boards the boards will be there if created path the created pins will be there*/}
-        {location.pathname === "/profile" && <div className="boards__container">
+            {boardModalToggle && <BoardCreateModal toggle={boardModalToggle} toggleFun={modalToggleHandler}/>}
 
 
-            {boardInfo.map(board => (<Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
+        </div>);
+    };
 
-        </div>}
-
-        {boardModalToggle && <BoardCreateModal toggle={boardModalToggle} toggleFun={modalToggleHandler}/>}
-
-
-    </div>);
-};
-
-export default Profile;
+    export default Profile;

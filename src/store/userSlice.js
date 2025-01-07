@@ -29,6 +29,12 @@ const userSlice = createSlice({
         },
         clearProfile(state){
             state.profile = null
+        },
+        setProfileImage(state,action){
+            state.profile.profile_img = action.payload
+        },
+        setProfileDesc(state,action){
+            state.profile.desc = action.payload
         }
     }
 })
