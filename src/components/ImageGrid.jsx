@@ -8,7 +8,7 @@ const ImageGrid = (props) => {
                 {
                     props.pinInfo.map(pin => (<Link to={`/pin/${pin.id}`} key={pin.id}>
                             <div className={"image__list"}>
-                                <img src={pin.image} alt=""/>
+                                <img src={pin.image} alt="" loading={"lazy"}/>
                                 <span>{pin.username}</span>
                             </div>
                         </Link>

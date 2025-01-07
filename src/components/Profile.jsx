@@ -8,7 +8,7 @@ import {ROOT_URL} from "../Constants.js";
 import {boardActions} from "../store/boardSlice.js";
 import Board from "./Board.jsx";
 import {userActions} from "../store/userSlice.js";
-import {Link, Navigate, Outlet, useLocation,NavLink} from "react-router-dom";
+import {Link, Navigate, Outlet, useLocation, NavLink} from "react-router-dom";
 import SavedPins from "./SavedPins.jsx";
 import BoardCreateModal from "./BoadCreateModal.jsx"
 
@@ -17,6 +17,7 @@ import {FaPlus} from "react-icons/fa6";
 
 const Profile = () => {
     const userInfo = useSelector(state => state.userReducer.user)
+    const profileInfo = useSelector(state => state.userReducer.profile)
     const boardInfo = useSelector(state => state.boardReducer.boards)
     const [loading, err, fetchnewToken] = useNewToken(userInfo)
 
@@ -28,8 +29,11 @@ const Profile = () => {
 
     const [boardModalToggle, setBoardModalToggle] = useState(false)
 
+    const [profileLoading, setProfileLodaing] = useState(false)
+    const [profileError, setProfileError] = useState(null)
 
-    const modalToggleHandler = ()=>{
+
+    const modalToggleHandler = () => {
         setBoardModalToggle(prevState => !prevState)
     }
 
@@ -39,10 +43,32 @@ const Profile = () => {
 
 
     // testing
-    function removeUser() {
-        dispatch(userActions.polluteRefreshToken())
-    }
+    // function removeUser() {
+    //     dispatch(userActions.polluteRefreshToken())
+    // }
 
+
+    const fetchUserProfileInfo = async () => {
+        setProfileLodaing(true)
+        axios.get(`${ROOT_URL}profile`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }).then(res => {
+            if (res.status === 200) {
+                dispatch(userActions.setProfile(res.data))
+                setProfileError(null)
+                console.log(res.data)
+            }
+        })
+            .catch(e => {
+                console.log(e)
+                setProfileError(e.message)
+            })
+            .finally(() => setProfileLodaing(false))
+
+
+    }
 
     async function fetchBoardDetails() {
         try {
@@ -53,6 +79,7 @@ const Profile = () => {
                     "Authorization": `Bearer ${userInfo.token}`
                 }
             })
+
 
             console.table(res.data)
             dispatch(boardActions.setBoards(res.data))
@@ -72,13 +99,16 @@ const Profile = () => {
 
     useEffect(() => {
         fetchBoardDetails()
+        fetchUserProfileInfo()
+
+
     }, [userInfo]);
 
 
-    if (loading || boardLoading) {
+    if (loading || boardLoading || profileLoading) {
         return <MainLoader/>
     }
-    if (err || boardError) {
+    if (err || boardError || profileError) {
         return <h1>{err}</h1>
     }
 
@@ -89,16 +119,21 @@ const Profile = () => {
 
         <div className="profile__container">
             <div className="profile__section">
-                <img src={PROFILE_IMG} alt="#" className="profile__img"/>
+                {profileInfo ? <img src={profileInfo.profile_img} alt="#" className="profile__img"/> :
+                    <img src={PROFILE_IMG} alt="#" className="profile__img"/>}
+
                 <h1>{userInfo?.username}</h1>
                 <p>{userInfo?.email}</p>
+                {profileInfo && <p className={"profile__desc"}>{profileInfo.desc}</p>}
                 {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
             </div>
         </div>
         <div className="saved__created__toggle__container">
             {/*TODO: Add navlink instead of link */}
-            <NavLink to={"created/"} className={({isActive})=>(isActive ? "navlink__active" :"navlink")}>Created</NavLink>
-            <NavLink to={"saved/"} className={({isActive})=>(isActive ? "navlink__active" :"navlink")}>Saved</NavLink>
+            <NavLink to={"created/"}
+                     className={({isActive}) => (isActive ? "navlink__active" : "navlink")}>Created</NavLink>
+            <NavLink to={"saved/"}
+                     className={({isActive}) => (isActive ? "navlink__active" : "navlink")}>Saved</NavLink>
         </div>
 
         <div className="create__btn__container ">

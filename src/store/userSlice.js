@@ -1,7 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    user:null
+    user:null,
+    profile:null
 }
 const userSlice = createSlice({
     name:"userslice",
@@ -18,9 +19,16 @@ const userSlice = createSlice({
             // state.refresh = action.payload.refresh
         },
         // testing for refressh token expiry reload feature. TODO: delete this section code
-        polluteRefreshToken(state){
-            state.user.token+="fdf"
-            state.user.refresh += "ddd"
+        // polluteRefreshToken(state){
+        //     state.user.token+="fdf"
+        //     state.user.refresh += "ddd"
+        // }
+
+        setProfile(state,action) {
+            state.profile = action.payload
+        },
+        clearProfile(state){
+            state.profile = null
         }
     }
 })

@@ -14,6 +14,7 @@ function Nav() {
     console.log("I am from Main Nav component")
 
     const userInfo = useSelector(state => state.userReducer.user)
+    const profileInfo = useSelector(state => state.userReducer.profile)
 
 
     //TODO: remove userInfo checking at nav, check where the userLogin required.
@@ -67,7 +68,7 @@ function Nav() {
                     <div className="nav__right__el">
 
                         <Link to={"/profile"}>
-                            <img src={DUCK} alt="" className={"nav__profile__img"}/>
+                            {profileInfo ?<img src={profileInfo.profile_img} alt="" className={"nav__profile__img"}/> :<img src={DUCK} alt="" className={"nav__profile__img"}/>}
                         </Link>
                     </div>
 
