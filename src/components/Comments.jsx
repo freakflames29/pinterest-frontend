@@ -6,12 +6,13 @@ const Comments = () => {
     const commentInfo = useSelector(state => state.commentReducer.comments)
 
 
+
     return (
         <>
             {
                 commentInfo.map(comment => (
                     <div className="user__info comment__section" key={comment.id}>
-                        <img src={AVATAR} alt=""/>
+                        {comment.profile_img !== "#" ? <img src={comment.profile_img} alt=""/> : <img src={AVATAR} alt=""/> }
                         <div className="info">
                             <span className={"username"}><b>{comment.username}</b></span>
                             <p>{comment.body}</p>
