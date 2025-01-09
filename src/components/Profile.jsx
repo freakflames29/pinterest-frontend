@@ -41,6 +41,44 @@ const Profile = () => {
     const [profileImage, setProfileImage] = useState(null)
 
 
+    const [newDesc, setNewDesc] = useState()
+    const [descLoading, setDescLoading] = useState(false)
+    const [descError, setDescError] = useState(null)
+    const [toggleDesc, setToggleDesc] = useState(false)
+
+    const dChangeHandler = (e) => {
+        setNewDesc(e.target.value)
+    }
+    const dToggleHandler = () => {
+        setToggleDesc(prevState => !prevState)
+    }
+
+    const  updateDesc = async ()=>{
+        try{
+            setDescLoading(true)
+            const url = `${ROOT_URL}profile/update/`
+            const payload = {
+                desc:newDesc
+            }
+            const res = await axios.patch(url,payload,{
+                headers:{
+                    Authorization:`Bearer ${userInfo.token}`
+                }
+            })
+            dispatch(userActions.setProfileDesc(res.data.desc))
+            setDescError(null)
+            dToggleHandler()
+        }
+        catch (e){
+            console.log(e)
+            setDescError(e.message)
+            dToggleHandler()
+        }
+        finally {
+            setDescLoading(false)
+        }
+    }
+
     const modalToggleHandler = () => {
         setBoardModalToggle(prevState => !prevState)
     }
@@ -134,6 +172,7 @@ const Profile = () => {
 
         } catch (e) {
             console.log(e)
+
             setImageChangeError(e.message)
 
 
@@ -218,7 +257,28 @@ const Profile = () => {
 
                 <h1>{userInfo?.username}</h1>
                 <p>{userInfo?.email}</p>
-                {profileInfo && <p className={"profile__desc"}>{profileInfo.desc}</p>}
+                {profileInfo && <div className={"profile__desc"}>
+                    <div className="edit__pencil" onClick={dToggleHandler}>
+                        <FaPencil/>
+                    </div>
+
+                    {toggleDesc ?
+                        <>
+
+                        <textarea type="text" value={newDesc} className={"form__field"} onChange={dChangeHandler}/>
+                        <button onClick={updateDesc} className={"btn btn__red"}>{
+                            descLoading ? "Updating...":"Update"
+
+
+                        }</button>
+
+                        </>
+
+                        :  <>{descError!==null ? <h2>{descError}</h2> : profileInfo.desc}</>
+
+                    }
+
+                </div>}
 
                 {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
             </div>

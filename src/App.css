@@ -266,6 +266,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     border-radius: inherit;
+    z-index: 43243243;
 
 }
 
@@ -974,7 +975,7 @@ label {
 .modal__box {
     width: 500px;
     background: #fff;
-    height: 24%;
+    height: 35%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -982,6 +983,7 @@ label {
     padding-top: 2%;
     border-radius: 15px;
     z-index: 100000;
+    justify-content: center;
 }
 
 .modalClose {
@@ -1020,7 +1022,12 @@ label {
     text-decoration: none;
 }
 .profile__desc{
+    width: 100%;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 .image__change__modal__container{
     width: 300px;
@@ -1030,7 +1037,7 @@ label {
     left: 35%;
     /*padding: 20px;*/
 
-    z-index: 21231312;
+    /*z-index: 21231312;*/
 
 }
 .file__field{
@@ -1090,4 +1097,17 @@ label {
     border-bottom: 100px solid #ffffff;
     border-right: 100px solid #ffffff00;
     border-radius: 10px;
+}
+.edit__pencil{
+    height:30px;
+    width: 30px;
+    margin: 10px;
+    /*padding: 10px;*/
+    background: #c2c2c2;
+    text-align: center;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*margin: 10%;*/
 }
