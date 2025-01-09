@@ -13,6 +13,8 @@ import SavedPins from "./SavedPins.jsx";
 import BoardCreateModal from "./BoadCreateModal.jsx"
 
 import {FaPlus} from "react-icons/fa6";
+import {FaPencil} from "react-icons/fa6";
+import Loader from "./Loader.jsx";
 
 
 const Profile = () => {
@@ -29,6 +31,10 @@ const Profile = () => {
 
     const [boardModalToggle, setBoardModalToggle] = useState(false)
 
+    const [imageChangeModal, setImageChangeModal] = useState(false)
+    const [imageChangeLoader, setImageChangeLoader] = useState(false)
+    const [imageChangeError, setImageChangeError] = useState(null)
+
     const [profileLoading, setProfileLodaing] = useState(false)
     const [profileError, setProfileError] = useState(null)
 
@@ -37,6 +43,10 @@ const Profile = () => {
 
     const modalToggleHandler = () => {
         setBoardModalToggle(prevState => !prevState)
+    }
+
+    const imageModalToggle = () => {
+        setImageChangeModal(prevState => !prevState)
     }
 
     // to check the pathname
@@ -106,24 +116,30 @@ const Profile = () => {
             profile_img: profileImage
         }
 
-       try {
+        try {
+            setImageChangeLoader(true)
             const URL = `${ROOT_URL}profile/update/`
-            const res = await axios.patch(URL,payload,{
-                headers:{
-                    Authorization:`Bearer ${userInfo.token}`,
-                    "Content-Type":"multipart/form-data"
+            const res = await axios.patch(URL, payload, {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`, "Content-Type": "multipart/form-data"
                 }
             })
 
-           const new_profile_img = res.data.profile_img
-           dispatch(userActions.setProfileImage(new_profile_img))
+            const new_profile_img = res.data.profile_img
+            dispatch(userActions.setProfileImage(new_profile_img))
+            setImageChangeError(null)
+            imageModalToggle()
 
-           // console.table(res.data)
+            // console.table(res.data)
 
-       } catch (e){
+        } catch (e) {
             console.log(e)
+            setImageChangeError(e.message)
 
-       }
+
+        } finally {
+            setImageChangeLoader(false)
+        }
 
 
     }
@@ -154,16 +170,56 @@ const Profile = () => {
         {/*IT will redirect profile to profile/saved/ */}
         {/*<Navigate to={"saved/"}/> */}
 
+
         <div className="profile__container">
             <div className="profile__section">
-                {profileInfo ? <img src={profileInfo.profile_img} alt="#" className="profile__img"/> :
-                    <img src={PROFILE_IMG} alt="#" className="profile__img"/>}
+                <div className="profile_section__image">
+
+
+                    <label className="profile__image__hover" onClick={imageModalToggle}>
+
+
+                        <FaPencil/>
+
+
+                    </label>
+                    {profileInfo ? <img src={profileInfo.profile_img} alt="#" className="profile__img"/> :
+                        <img src={PROFILE_IMG} alt="#" className="profile__img"/>}
+
+
+                    {imageChangeModal && <div className="image__change__modal__container">
+                        <div className="triangel"></div>
+                        {imageChangeLoader && <Loader/>}
+                        {imageChangeError && <h2>{imageChangeError}</h2>}
+
+                        <div className="image__change__modal">
+
+
+                            <label htmlFor="profileImg"> <FaPencil/> Choose Image</label>
+
+                            <input type="file" accept={"image/*"} id={"profileImg"} onChange={imageChangeHandler}
+                                   className={"file__field"}/>
+
+
+                            {profileImage ? <img src={URL.createObjectURL(profileImage)} alt=""
+                                                 className={"profile__img__preview"}/> :
+                                <img src={PROFILE_IMG} alt="" className={"profile__img__preview"}/>
+
+                            }
+                            <div className="buttons">
+
+                                <button className={"btn btn__grey"} onClick={imageModalToggle}>Cancel</button>
+                                <button onClick={imagePatchHandler} className={"btn btn__red"}>Update</button>
+                            </div>
+                        </div>
+
+                    </div>}
+                </div>
 
                 <h1>{userInfo?.username}</h1>
                 <p>{userInfo?.email}</p>
                 {profileInfo && <p className={"profile__desc"}>{profileInfo.desc}</p>}
-                <input type="file" accept={"image/*"} onChange={imageChangeHandler}/>
-                <button onClick={imagePatchHandler}>Save image</button>
+
                 {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
             </div>
         </div>
@@ -202,8 +258,7 @@ const Profile = () => {
         {location.pathname === "/profile" && <div className="boards__container">
 
 
-            {boardInfo.map(board => (
-                <Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
+            {boardInfo.map(board => (<Board name={board.name} key={board.id} pins={board.pins} boardId={board.id}/>))}
 
         </div>}
 
