@@ -188,12 +188,12 @@ const Profile = () => {
 
 
                     {imageChangeModal && <div className="image__change__modal__container">
-                        <div className="triangel"></div>
+
                         {imageChangeLoader && <Loader/>}
                         {imageChangeError && <h2>{imageChangeError}</h2>}
 
                         <div className="image__change__modal">
-
+                            <div className="triangel"></div>
 
                             <label htmlFor="profileImg"> <FaPencil/> Choose Image</label>
 
