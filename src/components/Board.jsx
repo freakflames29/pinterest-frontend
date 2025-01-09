@@ -37,7 +37,7 @@ const Board = (props) => {
             }
         }
 
-        console.log("Image List", imgList.length)
+        // console.log("Image List", imgList.length)
         return imgList
     }
 

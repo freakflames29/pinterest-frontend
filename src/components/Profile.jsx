@@ -115,7 +115,10 @@ const Profile = () => {
                 }
             })
 
-           console.table(res.data)
+           const new_profile_img = res.data.profile_img
+           dispatch(userActions.setProfileImage(new_profile_img))
+
+           // console.table(res.data)
 
        } catch (e){
             console.log(e)
