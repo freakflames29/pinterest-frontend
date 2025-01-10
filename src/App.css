@@ -382,6 +382,7 @@ button[disabled] {
     align-items: center;
     /*background: #999999;*/
     margin-bottom: 5px;
+    cursor: pointer;
 }
 .search__result svg{
     margin-right: 10px;
