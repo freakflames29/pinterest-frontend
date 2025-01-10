@@ -197,7 +197,7 @@ function SinglePin() {
         fetchPinData();
         // fethUserBoards();
 
-    }, [userInfo]);
+    }, [userInfo,params.id]);
 
     useEffect(() => {
         fethUserBoards();

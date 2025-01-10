@@ -1,20 +1,23 @@
-import {Link, Outlet, useNavigate,NavLink} from "react-router-dom";
+import {Link, Outlet, useNavigate, NavLink} from "react-router-dom";
 import PINSVG from "../assets/images/pinsvg.svg";
 import DUCK from "../assets/images/duck.jpeg";
-import {FaSearch} from "react-icons/fa";
 import {userActions} from "../store/userSlice";
 import {useDispatch} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import SearchBar from "./SearchBar.jsx";
 
 function Nav() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    console.log("I am from Main Nav component")
+    // console.log("I am from Main Nav component")
+
+
 
     const userInfo = useSelector(state => state.userReducer.user)
     const profileInfo = useSelector(state => state.userReducer.profile)
+    const [searchItem,setSearchItem] = useState("")
 
 
     //TODO: remove userInfo checking at nav, check where the userLogin required.
@@ -40,6 +43,8 @@ function Nav() {
         navigate("/auth")
     }
 
+
+
     return (
         <>
             <div className="main__nav__container">
@@ -50,13 +55,12 @@ function Nav() {
                     {/*<span>Home</span>*/}
                     <span className={"main__nav__item"}>explore</span>
                     <span className={"main__nav__item"}>
-                        <NavLink to={"/create"} className={({isActive})=>(isActive && "nav__menu__active")}>Create</NavLink>
+                        <NavLink to={"/create"}
+                                 className={({isActive}) => (isActive && "nav__menu__active")}>Create</NavLink>
                     </span>
                 </div>
                 <div className="main__nav__middle">
-                    <FaSearch/>
-
-                    <input type="text" placeholder={`Search your ideas here...`} className="input__field"/>
+                    <SearchBar/>
                 </div>
                 <div className="main__nav__right">
 
@@ -68,7 +72,8 @@ function Nav() {
                     <div className="nav__right__el">
 
                         <Link to={"/profile"}>
-                            {profileInfo ?<img src={profileInfo.profile_img} alt="" className={"nav__profile__img"}/> :<img src={DUCK} alt="" className={"nav__profile__img"}/>}
+                            {profileInfo ? <img src={profileInfo.profile_img} alt="" className={"nav__profile__img"}/> :
+                                <img src={DUCK} alt="" className={"nav__profile__img"}/>}
                         </Link>
                     </div>
 
