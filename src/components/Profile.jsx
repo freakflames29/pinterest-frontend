@@ -8,7 +8,7 @@ import {ROOT_URL} from "../Constants.js";
 import {boardActions} from "../store/boardSlice.js";
 import Board from "./Board.jsx";
 import {userActions} from "../store/userSlice.js";
-import {Link, Navigate, Outlet, useLocation, NavLink} from "react-router-dom";
+import {Link, Navigate, Outlet, useLocation, NavLink, useNavigate} from "react-router-dom";
 import SavedPins from "./SavedPins.jsx";
 import BoardCreateModal from "./BoadCreateModal.jsx"
 
@@ -45,6 +45,8 @@ const Profile = () => {
     const [descLoading, setDescLoading] = useState(false)
     const [descError, setDescError] = useState(null)
     const [toggleDesc, setToggleDesc] = useState(false)
+
+    const navigate = useNavigate()
 
     const dChangeHandler = (e) => {
         setNewDesc(e.target.value)
@@ -197,6 +199,12 @@ const Profile = () => {
     }, [userInfo]);
 
 
+
+    function logOutHandler() {
+        localStorage.clear()
+        dispatch(userActions.removeUser())
+        navigate("/auth")
+    }
     if (loading || boardLoading || profileLoading) {
         return <MainLoader/>
     }
@@ -280,6 +288,8 @@ const Profile = () => {
 
                 </div>}
 
+
+                   <button className="btn btn_red" onClick={logOutHandler}>Logout</button>
                 {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
             </div>
         </div>

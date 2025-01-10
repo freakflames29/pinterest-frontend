@@ -63,12 +63,12 @@ function Nav() {
                     <SearchBar/>
                 </div>
                 <div className="main__nav__right">
+                    
+                    {/*<div className="nav__right__el">*/}
 
-                    <div className="nav__right__el">
 
-
-                        <button className="btn btn_red" onClick={logOutHandler}>Logout</button>
-                    </div>
+                    {/*    /!*<button className="btn btn_red" onClick={logOutHandler}>Logout</button>*!/*/}
+                    {/*</div>*/}
                     <div className="nav__right__el">
 
                         <Link to={"/profile"}>
