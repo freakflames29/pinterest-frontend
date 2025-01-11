@@ -6,6 +6,9 @@ import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import SearchBar from "./SearchBar.jsx";
+import axios from "axios";
+import MainLoader from "./MainLoader.jsx";
+import {ROOT_URL} from "../Constants.js";
 
 function Nav() {
     const dispatch = useDispatch();
@@ -14,35 +17,74 @@ function Nav() {
     // console.log("I am from Main Nav component")
 
 
-
     const userInfo = useSelector(state => state.userReducer.user)
     const profileInfo = useSelector(state => state.userReducer.profile)
-    const [searchItem,setSearchItem] = useState("")
+    const [searchItem, setSearchItem] = useState("")
 
 
     //TODO: remove userInfo checking at nav, check where the userLogin required.
     // it checks if user data present in localstorage and if present loads the data redux store
     function localStorageDataToReduxStore() {
 
-
-        const data = localStorage.getItem("userInfo");
-        if (data) {
-            let parsedData = JSON.parse(data);
-            dispatch(userActions.setUser(parsedData));
+        if (!userInfo) {
+            console.log("Fetching info from storage")
+            const data = localStorage.getItem("userInfo");
+            if (data) {
+                let parsedData = JSON.parse(data);
+                dispatch(userActions.setUser(parsedData));
+            } else {
+                navigate("/auth")
+            }
         } else {
-            navigate("/auth")
+            console.log("Data is in redux")
         }
     }
 
+    const [profileLoading, setProfileLoading] = useState(false)
+    const [profileError, setProfileError] = useState(null)
 
-    useEffect(() => localStorageDataToReduxStore(), []);
+    const fetchUserProfileInfo = async () => {
+        console.log("Running")
+        setProfileLoading(true)
+        axios.get(`${ROOT_URL}profile`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }).then(res => {
+            if (res.status === 200) {
+                dispatch(userActions.setProfile(res.data))
+                setProfileError(null)
+                console.log(res.data)
+            }
 
-    function logOutHandler() {
-        localStorage.clear()
-        dispatch(userActions.removeUser())
-        navigate("/auth")
+        })
+            .catch(e => {
+                if (e.status === 404) {
+                    console.log("No profile details found")
+                    navigate("/create-profile")
+                }
+                else{
+
+                console.log(e)
+                setProfileError(`${e.message} -- profile errro`)
+                }
+            })
+            .finally(() => setProfileLoading(false))
+
+
     }
 
+
+    useEffect(() => {
+        localStorageDataToReduxStore()
+        fetchUserProfileInfo()
+    }, [userInfo]);
+    //
+    // function logOutHandler() {
+    //     localStorage.clear()
+    //     dispatch(userActions.removeUser())
+    //     navigate("/auth")
+    // }
 
 
     return (
@@ -63,7 +105,7 @@ function Nav() {
                     <SearchBar/>
                 </div>
                 <div className="main__nav__right">
-                    
+
                     {/*<div className="nav__right__el">*/}
 
 
@@ -80,7 +122,7 @@ function Nav() {
                 </div>
             </div>
 
-            <Outlet/>
+            {profileLoading ? <MainLoader/> : <Outlet/>}
         </>
     );
 }

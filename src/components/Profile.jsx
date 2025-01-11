@@ -115,7 +115,7 @@ const Profile = () => {
         })
             .catch(e => {
                 console.log(e)
-                setProfileError(e.message)
+                setProfileError(`${e.message} -- profile errro`)
             })
             .finally(() => setProfileLodaing(false))
 
@@ -142,7 +142,7 @@ const Profile = () => {
                 console.log("Im here")
                 await fetchnewToken()
             }
-            setBoardErr(e.message)
+            setBoardErr(`${e.message} -- profile errro`)
         } finally {
             setBoardLoading(false)
         }
@@ -175,7 +175,7 @@ const Profile = () => {
         } catch (e) {
             console.log(e)
 
-            setImageChangeError(e.message)
+            setImageChangeError(`${e.message} -- profile errro`)
 
 
         } finally {

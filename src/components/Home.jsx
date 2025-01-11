@@ -17,7 +17,7 @@ function Home() {
     const pinInfo = useSelector(state => state.pinReducer.allPin)
     const dispatch = useDispatch()
 
-    console.log("I am from home component")
+    // console.log("I am from home component")
 
 
 
@@ -28,7 +28,7 @@ function Home() {
 
             dispatch(pinActions.setAllPin(res.data))
             setErr(null)
-            console.log(res.data)
+            // console.log(res.data)
 
 
         } catch (e) {

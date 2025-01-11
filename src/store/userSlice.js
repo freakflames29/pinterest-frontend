@@ -13,6 +13,7 @@ const userSlice = createSlice({
         },
         removeUser(state){
             state.user = null
+            state.profile = null
         },
         setToken(state,action){
             state.user.token = action.payload.access

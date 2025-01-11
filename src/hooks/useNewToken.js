@@ -32,10 +32,11 @@ const useNewToken = (user) => {
             if (e.status === 401) {
                 // means the refresh token is also expired
                 localStorage.clear()
+                window.location.reload()
                 // navigator("/auth")
                 //     navigate to auth if required
             }
-            setErr(e.message);
+            setErr(`${e.message} -- fetch error errro`);
 
         } finally {
             setLoading(false);

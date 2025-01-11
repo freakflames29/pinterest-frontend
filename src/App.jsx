@@ -15,6 +15,7 @@ import Create from "./components/Create.jsx";
 import SavedPins from "./components/SavedPins.jsx";
 import CreatedPins from "./components/CreatedPins.jsx";
 import Search from "./components/Search.jsx";
+import CreateProfile from "./components/CreateProfile.jsx";
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
         {
           path:"/pin/",
           element:<Search/>
+        },{
+          path:"/create-profile/",
+          element:<CreateProfile/>
         },
         {
           path: "profile/",
