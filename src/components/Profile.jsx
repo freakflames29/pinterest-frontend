@@ -55,28 +55,26 @@ const Profile = () => {
         setToggleDesc(prevState => !prevState)
     }
 
-    const  updateDesc = async ()=>{
-        try{
+    const updateDesc = async () => {
+        try {
             setDescLoading(true)
             const url = `${ROOT_URL}profile/update/`
             const payload = {
-                desc:newDesc
+                desc: newDesc
             }
-            const res = await axios.patch(url,payload,{
-                headers:{
-                    Authorization:`Bearer ${userInfo.token}`
+            const res = await axios.patch(url, payload, {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
                 }
             })
             dispatch(userActions.setProfileDesc(res.data.desc))
             setDescError(null)
             dToggleHandler()
-        }
-        catch (e){
+        } catch (e) {
             console.log(e)
             setDescError(e.message)
             dToggleHandler()
-        }
-        finally {
+        } finally {
             setDescLoading(false)
         }
     }
@@ -101,24 +99,25 @@ const Profile = () => {
 
 
     const fetchUserProfileInfo = async () => {
-        setProfileLodaing(true)
-        axios.get(`${ROOT_URL}profile`, {
-            headers: {
-                Authorization: `Bearer ${userInfo.token}`
-            }
-        }).then(res => {
-            if (res.status === 200) {
-                dispatch(userActions.setProfile(res.data))
-                setProfileError(null)
-                console.log(res.data)
-            }
-        })
-            .catch(e => {
-                console.log(e)
-                setProfileError(`${e.message} -- profile errro`)
+        if (profileInfo === null) {
+            setProfileLodaing(true)
+            axios.get(`${ROOT_URL}profile`, {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }).then(res => {
+                if (res.status === 200) {
+                    dispatch(userActions.setProfile(res.data))
+                    setProfileError(null)
+                    console.log(res.data)
+                }
             })
-            .finally(() => setProfileLodaing(false))
-
+                .catch(e => {
+                    console.log(e)
+                    setProfileError(`${e.message} -- profile errro`)
+                })
+                .finally(() => setProfileLodaing(false))
+        }
 
     }
 
@@ -196,8 +195,7 @@ const Profile = () => {
         fetchUserProfileInfo()
 
 
-    }, [userInfo]);
-
+    }, [userInfo,profileInfo]);
 
 
     function logOutHandler() {
@@ -205,6 +203,7 @@ const Profile = () => {
         dispatch(userActions.removeUser())
         navigate("/auth")
     }
+
     if (loading || boardLoading || profileLoading) {
         return <MainLoader/>
     }
@@ -273,23 +272,23 @@ const Profile = () => {
                     {toggleDesc ?
                         <>
 
-                        <textarea type="text" value={newDesc} className={"form__field"} onChange={dChangeHandler}/>
-                        <button onClick={updateDesc} className={"btn btn__red"}>{
-                            descLoading ? "Updating...":"Update"
+                            <textarea type="text" value={newDesc} className={"form__field"} onChange={dChangeHandler}/>
+                            <button onClick={updateDesc} className={"btn btn__red"}>{
+                                descLoading ? "Updating..." : "Update"
 
 
-                        }</button>
+                            }</button>
 
                         </>
 
-                        :  <>{descError!==null ? <h2>{descError}</h2> : profileInfo.desc}</>
+                        : <>{descError !== null ? <h2>{descError}</h2> : profileInfo.desc}</>
 
                     }
 
                 </div>}
 
 
-                   <button className="btn btn_red" onClick={logOutHandler}>Logout</button>
+                <button className="btn btn_red" onClick={logOutHandler}>Logout</button>
                 {/*<button onClick={removeUser}>Clean user Redux store </button>*/}
             </div>
         </div>

@@ -44,32 +44,34 @@ function Nav() {
     const [profileError, setProfileError] = useState(null)
 
     const fetchUserProfileInfo = async () => {
+
         console.log("Running")
-        setProfileLoading(true)
-        axios.get(`${ROOT_URL}profile`, {
-            headers: {
-                Authorization: `Bearer ${userInfo.token}`
-            }
-        }).then(res => {
-            if (res.status === 200) {
-                dispatch(userActions.setProfile(res.data))
-                setProfileError(null)
-                console.log(res.data)
-            }
-
-        })
-            .catch(e => {
-                if (e.status === 404) {
-                    console.log("No profile details found")
-                    navigate("/create-profile")
+        if (profileInfo===null){
+            setProfileLoading(true)
+            axios.get(`${ROOT_URL}profile`, {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
                 }
-                else{
-
-                console.log(e)
-                setProfileError(`${e.message} -- profile errro`)
+            }).then(res => {
+                if (res.status === 200) {
+                    dispatch(userActions.setProfile(res.data))
+                    setProfileError(null)
+                    console.log(res.data)
                 }
+
             })
-            .finally(() => setProfileLoading(false))
+                .catch(e => {
+                    if (e.status === 404) {
+                        console.log("No profile details found")
+                        navigate("/create-profile")
+                    } else {
+
+                        console.log(e)
+                        setProfileError(`${e.message} -- profile errro`)
+                    }
+                })
+                .finally(() => setProfileLoading(false))
+        }
 
 
     }
