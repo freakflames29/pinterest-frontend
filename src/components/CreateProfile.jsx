@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import {ROOT_URL} from "../Constants.js";
 import {useDispatch} from "react-redux";
@@ -42,11 +42,11 @@ const CreateProfile = () => {
                 }
             })
 
-            if (res.status===200){
+
                 dispatch(userActions.setProfile(res.data))
                 setErr(null)
-                // navigate("/profile")
-            }
+                navigate("/profile/")
+
 
         }catch (e){
             console.log(e.message)
@@ -56,6 +56,12 @@ const CreateProfile = () => {
             setLoading(false)
         }
     }
+
+    useEffect(() => {
+        if (profileInfo!==null){
+            navigate("/profile/")
+        }
+    }, [profileInfo]);
 
     if (loading){
         return  <MainLoader/>
@@ -69,7 +75,7 @@ const CreateProfile = () => {
 
     return (
         <div>
-            {(err!=null && !loading && profileInfo!=null) && <Navigate to={"profile/"}/> }
+
             <label htmlFor="desc">Desc</label>
             <textarea name="desc" id="desc" cols="30" rows="10" placeholder={"Pls say something about yourself"} value={desc} onChange={e=>setDesc(e.target.value)}/> <br/><br/>
             <label htmlFor="gender">Gender</label>

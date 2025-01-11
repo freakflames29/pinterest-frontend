@@ -192,7 +192,7 @@ const Profile = () => {
 
     useEffect(() => {
         fetchBoardDetails()
-        fetchUserProfileInfo()
+        // fetchUserProfileInfo()
 
 
     }, [userInfo,profileInfo]);

@@ -48,7 +48,7 @@ function Nav() {
         console.log("Running")
         if (profileInfo===null){
             setProfileLoading(true)
-            axios.get(`${ROOT_URL}profile`, {
+            axios.get(`${ROOT_URL}profile/`, {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`
                 }
