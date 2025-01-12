@@ -22,7 +22,7 @@ function SinglePin() {
     const params = useParams();
     const userInfo = useSelector((state) => state.userReducer.user);
     const singlePinInfo = useSelector((state) => state.pinReducer.singlePin);
-
+    const profileInfo = useSelector(state => state.userReducer.profile)
     const boardInfo = useSelector((state) => state.boardReducer.boards);
 
     const [boardSelect, setBoardSelect] = useState("-1")
@@ -67,8 +67,8 @@ function SinglePin() {
             setErr(null);
         } catch (e) {
             setErr(e.message);
-            if(e.status === 401){
-            //     means: refresh token is also expired, then have to login again
+            if (e.status === 401) {
+                //     means: refresh token is also expired, then have to login again
                 localStorage.clear()
 
             }
@@ -177,6 +177,10 @@ function SinglePin() {
                     }
                 })
                 let data = res.data
+                // data.profile_img =
+                if (profileInfo) {
+                    data.profile_img = profileInfo.profile_img
+                }
 
                 console.log(data)
                 dispatch(commentActions.addComments(data))
@@ -197,7 +201,7 @@ function SinglePin() {
         fetchPinData();
         // fethUserBoards();
 
-    }, [userInfo,params.id]);
+    }, [userInfo, params.id]);
 
     useEffect(() => {
         fethUserBoards();

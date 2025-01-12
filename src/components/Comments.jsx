@@ -4,6 +4,15 @@ import {useSelector} from "react-redux";
 
 const Comments = () => {
     const commentInfo = useSelector(state => state.commentReducer.comments)
+    const userInfo = useSelector(state => state.userReducer.user)
+
+    let profile_img ;
+    // if (commentInfo.username === userInfo.username){
+    //     if ()
+    // }
+    if (commentInfo.profile_img !== "#"){
+        profile_img = commentInfo.profile_img
+    }
 
 
 
