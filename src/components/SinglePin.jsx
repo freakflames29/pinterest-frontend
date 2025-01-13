@@ -282,7 +282,7 @@ function SinglePin() {
                         </div>
                     </div>
 
-                    <SmallProfile name={singlePinInfo?.username}/>
+                    <SmallProfile name={singlePinInfo?.username} img = {singlePinInfo?.user_image}/>
 
                     <div className="show__comments">
                         <h3>Comments:</h3>
