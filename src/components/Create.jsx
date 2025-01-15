@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import useNewToken from "../hooks/useNewToken.js";
 import {useDispatch, useSelector} from "react-redux";
 import MainLoader from "./MainLoader.jsx";
@@ -8,7 +8,7 @@ import {pinActions} from "../store/pinSlice.js";
 import {useNavigate} from "react-router-dom";
 
 import {GrUploadOption} from "react-icons/gr";
-import { MdEdit } from "react-icons/md";
+import {MdEdit} from "react-icons/md";
 
 
 const Create = () => {
@@ -22,6 +22,10 @@ const Create = () => {
     const [createLoading, setCreateLoading] = useState(false)
     const [createError, setCreateError] = useState(null)
 
+    const [categoryFetchLoader, setCategoryFetchLoader] = useState(false)
+    const [categoryFetchError, setCategoryFetchError] = useState(null)
+    const [fetchedCategory, setFetchedCategory] = useState([])
+
 
     const navigator = useNavigate()
     const [image, setImage] = useState(null)
@@ -29,6 +33,7 @@ const Create = () => {
     const title = useRef()
     const desc = useRef()
     const link = useRef()
+    const category = useRef()
     // const image = useRef()
     // console.log(title)
 
@@ -47,9 +52,11 @@ const Create = () => {
             title: title.current?.value,
             desc: desc.current?.value,
             link: link.current?.value,
-            image: image
+            image: image,
+            category:parseInt(category.current?.value)
         }
         console.table("payload", payload)
+        // return
 
 
         try {
@@ -88,10 +95,31 @@ const Create = () => {
 
     }
 
-    if (loading || createLoading) {
+
+    const categoryFetch = async () => {
+        try {
+            setCategoryFetchLoader(true)
+            const res = await axios(`${ROOT_URL}category`)
+            console.table(res.data)
+            setFetchedCategory(res.data)
+
+        } catch (e) {
+            console.log(e)
+            setCategoryFetchError(e.message)
+
+        } finally {
+            setCategoryFetchLoader(false)
+        }
+    }
+
+    useEffect(() => {
+        categoryFetch()
+    }, []);
+
+    if (loading || createLoading || categoryFetchLoader) {
         return <MainLoader/>
     }
-    if (err || createError) {
+    if (err || createError || categoryFetchError) {
         return <h1>{err || createError}</h1>
     }
 
@@ -127,7 +155,7 @@ const Create = () => {
 
                                 <img src={URL.createObjectURL(image)} alt=""/>
                                 <label htmlFor="img">
-                                    <MdEdit />
+                                    <MdEdit/>
                                     Choose another
                                 </label>
                             </div>
@@ -138,6 +166,13 @@ const Create = () => {
                     <div className="create__info__section">
                         <input type="text" placeholder="Enter title of the pin" ref={title} className={"form__field"}/>
                         <input type="text" placeholder={"Enter link of the pin "} ref={link} className={"form__field"}/>
+                        {/*<label htmlFor="category" className={""}>Choose category</label>*/}
+                        <select name="category" id="category" ref={category} className={"form__field"} >
+                            {fetchedCategory.map((cat) => (
+                                <option value={cat.id} key={cat.id}>{cat.title}</option>
+
+                            ))}
+                        </select>
                         <textarea name="desc" id="desc" cols="30" rows="10" placeholder={"Enter desc about the pin"}
                                   ref={desc}
                                   className={"form__field"}/>
