@@ -33,11 +33,11 @@ const CreatedPins = () => {
     }
 
     useEffect(() => {
-        if (pins.length === 0) {
-            fetchPins()
 
-        }
-    }, [userInfo,pins]);
+        fetchPins()
+
+
+    }, [userInfo]);
 
     if (loading) {
         return <MainLoader/>
@@ -48,7 +48,7 @@ const CreatedPins = () => {
 
     return (
         <>
-            <ImageGrid pinInfo={pins}/>
+            {pins.length > 0 ? <ImageGrid pinInfo={pins}/> : <h1> <center>You have no pins</center></h1>}
         </>
     );
 };
