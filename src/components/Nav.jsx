@@ -46,7 +46,7 @@ function Nav() {
     const fetchUserProfileInfo = async () => {
 
         console.log("Running")
-        if (profileInfo===null){
+        if (profileInfo === null) {
             setProfileLoading(true)
             axios.get(`${ROOT_URL}profile/`, {
                 headers: {
@@ -97,7 +97,11 @@ function Nav() {
                         <img src={PINSVG} alt="logo"/>
                     </Link>
                     {/*<span>Home</span>*/}
-                    <span className={"main__nav__item"}>explore</span>
+                    <span className={"main__nav__item"}>
+                          <NavLink to={"/explore/"}
+                                   className={({isActive}) => (isActive && "nav__menu__active")}>Explore</NavLink>
+
+                    </span>
                     <span className={"main__nav__item"}>
                         <NavLink to={"/create"}
                                  className={({isActive}) => (isActive && "nav__menu__active")}>Create</NavLink>
