@@ -17,7 +17,7 @@ import {useState} from "react";
 const useFetch = (path) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-    const [data, setData] = useState()
+    const [data, setData] = useState([])
 
 
     const fetcher = async () => {
@@ -27,6 +27,7 @@ const useFetch = (path) => {
             setLoading(true)
             const res = await axios.get(url)
             setData(res.data)
+            return res.data
 
         } catch (e) {
             console.log("Error in useFetch hook", e)

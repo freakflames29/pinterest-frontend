@@ -1248,6 +1248,10 @@ label {
     filter: brightness(0.7);
     position: relative;
 }
+.category_img_title img:hover{
+    filter: brightness(0.5);
+
+}
 .category_img_title > .cat_title{
     position: absolute;
     color: white;
@@ -1265,4 +1269,12 @@ label {
 }
 .category_heading h3{
     font-size: 2em;
+}
+.center_div{
+    width: 100%;
+    margin-top: 2%;
+    text-align: center;
+}
+.center_div .btn{
+    margin-top: 10px;
 }

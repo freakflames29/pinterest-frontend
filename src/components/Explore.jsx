@@ -19,7 +19,9 @@ const Explore = () => {
 
 
     useEffect(() => {
-        fetcher()
+        fetcher().then((res)=>{
+            console.log("Data got success",res)
+        })
     }, []);
 
     if (loading) {
