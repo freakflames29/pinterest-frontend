@@ -335,7 +335,7 @@ button[disabled] {
 }
 
 .main__nav__left {
-    width: 15%;
+    width: 20%;
     display: flex;
     /*background: skyblue;*/
     align-items: center;
