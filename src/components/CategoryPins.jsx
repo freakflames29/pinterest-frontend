@@ -4,7 +4,7 @@ import ImageGrid from "./ImageGrid.jsx";
 import useFetch from "../hooks/useFetch.js";
 import MainLoader from "./MainLoader.jsx";
 
-const NoPinsCategory = ()=>{
+const NoPinsCategory = () => {
     return (
         <div className="center_div">
             <h1>No pins under this category</h1>
@@ -30,7 +30,6 @@ const CategoryPins = () => {
     if (error) {
         return <h1>{error}</h1>
     }
-
 
 
     return (

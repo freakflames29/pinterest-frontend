@@ -140,6 +140,7 @@ function SignUp(props) {
                         id="username"
                         className="form__field"
                         ref={username}
+                        required={true}
                     />
                     {props.login && (<>
                         <label htmlFor="email">Email</label>
@@ -149,6 +150,7 @@ function SignUp(props) {
                             id="email"
                             className="form__field"
                             ref={email}
+                            required={true}
                         />
                     </>)}
 
@@ -159,6 +161,7 @@ function SignUp(props) {
                         id="password"
                         className="form__field"
                         ref={password}
+                        required={true}
                     />
 
                     <button className="btn btn__red"
