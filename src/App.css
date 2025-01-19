@@ -1278,3 +1278,19 @@ label {
 .center_div .btn{
     margin-top: 10px;
 }
+.auth__modal{
+
+    /*background-color: rgba(0, 0, 0, 0.49);*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    /*background-color: red;*/
+}
+.modal__element{
+    width: 50%;
+    /*background: black;*/
+    display: flex;
+    justify-content: center;
+
+}
