@@ -1,3 +1,3 @@
 // export  const ROOT_URL = "http://127.0.0.1:8000/"
-export  const ROOT_URL = "http://192.168.1.2:8000/"
-// export  const ROOT_URL = "https://pinterest-backend-deploy.onrender.com/"
+// export  const ROOT_URL = "http://192.168.1.2:8000/"
+export  const ROOT_URL = "https://pinterest-backend-deploy.onrender.com/"
